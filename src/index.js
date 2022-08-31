@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios'
-import { InfinitySpin } from 'react-loader-spinner';
+import LoadingOverlay from 'react-loading-overlay';
+import BounceLoader from 'react-spinners/BounceLoader'
 
 // we get the LocalStorageService to access token
 // const localStorageService = LocalStorageService.getService()
-let isLoading = false;
+export let isLoading = false;
 // Add a request interceptor
 axios.interceptors.request.use(
   config => {
@@ -18,8 +19,9 @@ axios.interceptors.request.use(
     //   config.headers['Authorization'] = 'Bearer ' + token
     // }
     // config.headers['Content-Type'] = 'application/json';
-    console.log('In request interceptors');
+    console.log(isLoading);
     isLoading = true;
+    console.log(isLoading);
     return config;
   },
   error => {
@@ -54,22 +56,18 @@ axios.interceptors.response.use(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {isLoading &&
-      <div
-        style={{
-          width: "100%",
-          height: "100",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
+      <LoadingOverlay
+        active={true}
+        spinner={<BounceLoader />}
+        styles={{
+          overlay: (base) => ({
+            ...base,
+            height: '100vh'
+          })
         }}
+        className='hide-loader'
       >
-        <InfinitySpin
-          width='200'
-          color="#4fa94d"
-        />
-      </div>
-    }
+      </LoadingOverlay>
     <App />
   </React.StrictMode>
 );
