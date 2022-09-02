@@ -16,16 +16,12 @@ import user from './reducers/user';
 import { BrowserRouter } from 'react-router-dom';
 import alert from './reducers/alert';
 
-// Set deault
-axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-
 // API Request interceptor
 axios.interceptors.request.use(
   config => {
     const token = localStorage.getItem('authToken');
     if (token) {
-      config.headers['Authorization'] = 'Bearer ' + token
+      config.headers['Authorization'] = 'Token ' + token
     }
     console.log('In interceptor')
     // dispatch(allActions.loadingActions.showLoader)

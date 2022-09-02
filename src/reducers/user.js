@@ -6,7 +6,8 @@ const initialState = {
     role: '',
     isFirstTimeLogin: true,
     isLoginSuccess: false,
-    isResetPasswordSuccess: false
+    isResetPasswordSuccess: false,
+    registrationId: ''
   }
 
 const user = (state = initialState, action) => {
@@ -15,6 +16,7 @@ const user = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.user,
+                registrationId: action.user.username,
                 isLoginSuccess: true,
                 isResetPasswordSuccess: false
               }

@@ -15,23 +15,18 @@ export function login(loginDetails) {
                 //     role: 'student'
                 // };
                 console.log(response);
-                return response;
+                return response?.data;
             })
 }
 
 export function resetPassword(userDetails) {
     console.log(userDetails);
-    const request = {
-        username: userDetails?.registrationId,
-        password: userDetails?.password,
-        newpassword: userDetails?.newpassword
-    };
-    return axios.post('http://127.0.0.1:8000/api/resetpassword', request).then(response => {
+    return axios.post('http://127.0.0.1:8000/api/resetpassword', userDetails).then(response => {
                 // response = {
                 //     success: true
                 // };
                 console.log(response);
-                return response;
+                return response?.data;
             })
 }
 
@@ -42,6 +37,6 @@ export function logout() {
                 //     success: true
                 // };
                 console.log(response);
-                return response;
+                return response?.data;
             })
 }

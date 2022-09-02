@@ -22,9 +22,9 @@ function Login() {
 
 
   // reset login status
-  useEffect(() => {
-    dispatch(userActions.logout());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(userActions.logout());
+  // }, []);
 
   // navigate
   useEffect(() => {

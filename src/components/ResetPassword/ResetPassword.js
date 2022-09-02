@@ -36,8 +36,13 @@ function ResetPassword() {
   let pwd = watch("password");
   // Submiting data to reset password
   const submitPasswordDetails = (data) => {
-    if (data) {
-      dispatch(userActions.resetPassword(data));
+    const request = {
+      username: user?.registrationId,
+      password: data?.password,
+      newpassword: data?.password
+  };
+    if (request) {
+      dispatch(userActions.resetPassword(request));
       console.log(user);
     }
     // authService.resetPassword().then(res => {
