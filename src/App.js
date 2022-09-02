@@ -1,22 +1,63 @@
-import React, { Component }  from 'react';
-import logo from './logo.svg';
+import React, { Component, useEffect, useState } from 'react';
 import './App.css';
 import Login from './components/Login/Login';
-import { BrowserRouter, Routes , Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import DashboardWrapper from './components/DashboardWrapper/DashboardWrapper';
+import { useSelector, useDispatch } from 'react-redux'
+import { alertActions } from './actions/alertActions';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import OnboardingUser from './components/OnboardingUser/OnboardingUser';
+// we get the LocalStorageService to access token
+// const localStorageService = LocalStorageService.getService()
+
 
 
 function App() {
+  const alert = useSelector(state => state.alert);
+
+  const dispatch = useDispatch();
+  const location = useLocation()
+
+  useEffect(() => {
+    dispatch(alertActions.clear());
+  }, [location]);
+
+  useEffect(() => {
+    if (alert?.message) {
+      setOpen(true);
+    }
+  }, [alert]);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClose = (event, reason) => {
+    setOpen(false);
+  };
+
   return (
     <div className="App">
-      <BrowserRouter>
+
       <Routes>
-        <Route path="" element={<Login />} />
+        <Route path="/" element={<Navigate replace to="/login" />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/dashboard" element={<DashboardWrapper />} />
+        <Route path="/onboarding-user" element={<OnboardingUser />} />
+        
+        {/* <GuardedRoute path="/dashboard" element={<DashboardWrapper />} meta={{ auth: true }} /> */}
       </Routes>
-    </BrowserRouter>
+      {alert?.message &&
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center'
+        }}>
+          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+            {alert.message}
+          </Alert>
+        </Snackbar>
+      }
     </div>
   );
 }

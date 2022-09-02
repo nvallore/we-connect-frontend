@@ -9,7 +9,7 @@ function DashboardWrapper() {
   
   return(
   <div className={styles.DashboardWrapper} data-testid="DashboardWrapper">
-    <CollapsibleNavbar />
+          <CollapsibleNavbar />
           <div className='container mt-5'>
           {/* To display different components based on routes */}
           <Routes>

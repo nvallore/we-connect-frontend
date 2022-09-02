@@ -1,10 +1,13 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Form, Button, Card, Container, Row, Col, } from 'react-bootstrap'
-import './Login.module.css'
+import styles from'./Login.module.css'
 import * as authService from '../../services/auth-service';
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from 'react-redux';
+import userActions from '../../actions/userActions';
+import logo_image from '../../images/logo512.png';
+import Image from 'react-bootstrap/Image'
 function Login() {
 
   const { setError, handleSubmit, control, reset, formState: { errors }, getValues
@@ -12,18 +15,39 @@ function Login() {
   //Object which helps in navigation
   const navigate = useNavigate();
 
+  //event dispatcher
+  const dispatch = useDispatch();
+
+  const user = useSelector(state => state.user)
+
+
+  // reset login status
+  useEffect(() => {
+    dispatch(userActions.logout());
+  }, []);
+
+  // navigate
+  useEffect(() => {
+    // dispatch(userActions.logout());
+    if(user.isLoginSuccess && user.isFirstTimeLogin) {
+      navigate('/reset-password')
+    } else if(user.isLoginSuccess && !user.isFirstTimeLogin) {
+      navigate('/dashboard')
+    }
+  }, [user]);
+
   // Submiting data to login
   const submitLoginDetails = (data) => {
-    authService.login().then(res => {
-      console.log(res);
-      if(res?.isFirstTimeLogin){
-        navigate("/reset-password");
-      }
-    });
+    if (data) {
+      dispatch(userActions.login(data));
+    }
   };
 
   return (
-    <Container> <Row> <Col>
+    <div className={styles.mainContainer}>
+    <Image fluid src={logo_image} alt='logo_image' className={styles.logoImage}></Image>
+
+    <Container fluid> <Row className="justify-content-md-center"> <Col xs lg="6">
       <Card><Card.Header>Sign In</Card.Header><Card.Body>
         <Form onSubmit={handleSubmit(submitLoginDetails)} onReset={reset} >
           <Form.Group className="mb-3">
@@ -45,7 +69,7 @@ function Login() {
 
           <Form.Group className="mb-3">
             <Form.Label>Password</Form.Label>
-            <Controller control={control} name="password" 
+            <Controller control={control} name="password"
               defaultValue=""
               render={({ field: { onChange, onBlur, value, ref } }) => (
                 <Form.Control onChange={onChange} value={value} ref={ref}
@@ -65,6 +89,7 @@ function Login() {
           </Button>
         </Form></Card.Body></Card>
     </Col> </Row> </Container>
+    </div>
   );
 }
 

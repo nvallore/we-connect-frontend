@@ -4,44 +4,52 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {Provider} from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit'
+import rootReducer from './reducers'
 import axios from 'axios'
+import allActions from './actions'
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader'
+import loader from './reducers/loader';
+import user from './reducers/user';
+import { BrowserRouter } from 'react-router-dom';
+import alert from './reducers/alert';
 
-// we get the LocalStorageService to access token
-// const localStorageService = LocalStorageService.getService()
-export let isLoading = false;
-// Add a request interceptor
+
+// API Request interceptor
 axios.interceptors.request.use(
   config => {
     // const token = localStorageService.getAccessToken()
     // if (token) {
     //   config.headers['Authorization'] = 'Bearer ' + token
     // }
-    // config.headers['Content-Type'] = 'application/json';
-    console.log(isLoading);
-    isLoading = true;
-    console.log(isLoading);
+    console.log('In interceptor')
+    // dispatch(allActions.loadingActions.showLoader)
+    document.getElementById('api-loader').classList.remove('hide-loader');
+    document.getElementById('api-loader').classList.add('show-loader');
     return config;
   },
   error => {
-    isLoading = false;
+    // dispatch(allActions.loadingActions.hideLoader)
     Promise.reject(error)
   }
 )
 
+// API Response interceptor
 axios.interceptors.response.use(
   response => {
-    console.log('In response interceptor');
+    // dispatch(allActions.loadingActions.hideLoader)
 
-    isLoading = false;
+    document.getElementById('api-loader').classList.add('hide-loader');
+    document.getElementById('api-loader').classList.remove('show-loader');
     return response
   },
   function (error) {
+    document.getElementById('api-loader').classList.add('hide-loader');
+    document.getElementById('api-loader').classList.remove('show-loader');
     const originalRequest = error.config
-    isLoading = false;
-
-    console.log('In response interceptor error');
+    // dispatch(allActions.loadingActions.hideLoader)
     if (
       error.response.status === 401 &&
       originalRequest.url === 'http://127.0.0.1:3000/v1/auth/token'
@@ -52,11 +60,21 @@ axios.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+//Redux Intilization
+const store = configureStore({
+  reducer: {
+    loader: loader,
+    user: user,
+    alert: alert
+  },
+}
+)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <LoadingOverlay
+    <div id='api-loader' className='hide-loader' >
+    <LoadingOverlay
         active={true}
         spinner={<BounceLoader />}
         styles={{
@@ -65,10 +83,13 @@ root.render(
             height: '100vh'
           })
         }}
-        className='hide-loader'
+        
       >
       </LoadingOverlay>
-    <App />
+      </div>
+      <BrowserRouter>
+      <Provider store={store}><App /></Provider>
+      </BrowserRouter>
   </React.StrictMode>
 );
 
