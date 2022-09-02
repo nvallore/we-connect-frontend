@@ -14,6 +14,7 @@ import userActions from '../../actions/userActions';
 function CollapsibleNavbar() {
   const location = useLocation();
   const [url, setUrl] = useState(null);
+  const [logoutEventDispatched, setLogoutEventDispatched] = useState(null);
   useEffect(() => {
     setUrl(location.pathname);
   }, [location]);
@@ -26,10 +27,16 @@ function CollapsibleNavbar() {
 
   const user = useSelector(state => state.user)
 
+  useEffect(() => {
+    if(user?.isLogoutSuccess && logoutEventDispatched) {
+      navigate('/login')
+    }
+  }, [user]);
+
   const logout = () => {
     console.log('logout');
     dispatch(userActions.logout());
-    navigate('/login')
+    setLogoutEventDispatched(true)
   }
 
   return (

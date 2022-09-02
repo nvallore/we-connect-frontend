@@ -24,9 +24,18 @@ const login = (userDetails) => {
 }
 
 const logout = () => {
-    authService.logout();
-    localStorage.removeItem("authToken");
-    return { type: userConstants.LOGOUT };
+    return dispatch => {
+    authService.logout().then(
+        res => { 
+            localStorage.removeItem("authToken");
+            dispatch(success());
+        },
+        error => {
+            dispatch(alertActions.error(error.toString()));
+        }
+    );
+    };
+    function success() { return { type: userConstants.LOGOUT_SUCCESS } }
 }
 
 const resetPassword = (userDetails) => {
