@@ -61,14 +61,14 @@ function ResetPassword() {
         <Card><Card.Header>Reset Password</Card.Header><Card.Body>
           <Form onSubmit={handleSubmit(submitPasswordDetails)} onReset={reset} >
             <Form.Group className="mb-3">
-              <Form.Label>Enter Password</Form.Label>
+              <Form.Label>Enter Old Password</Form.Label>
               <Controller control={control} name="password"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control onChange={onChange} value={value} ref={ref}
                     type="password"
                     isInvalid={errors.registrationId}
-                    placeholder="Enter Password"
+                    placeholder="Enter Old Password"
                   />)}
                 rules={{ required: true }}
               />
@@ -78,13 +78,12 @@ function ResetPassword() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Confirm Password</Form.Label>
+              <Form.Label>Enter New Password</Form.Label>
               <Controller control={control} name="confirmPassword"
                 defaultValue=""
                 rules={{
-                  required: 'Please enter the password',
-                  validate: value => value === pwd || "The passwords do not match"
-                }}
+                  required: 'Please enter the new password',
+                  }}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control onChange={onChange} value={value} ref={ref}
                     isInvalid={errors.password}
