@@ -38,7 +38,7 @@ function ResetPassword() {
   const submitPasswordDetails = (data) => {
     const request = {
       username: user?.registrationId,
-      password: data?.password,
+      password: user?.password,
       newpassword: data?.password
   };
     if (request) {
@@ -61,14 +61,14 @@ function ResetPassword() {
         <Card><Card.Header>Reset Password</Card.Header><Card.Body>
           <Form onSubmit={handleSubmit(submitPasswordDetails)} onReset={reset} >
             <Form.Group className="mb-3">
-              <Form.Label>Enter Old Password</Form.Label>
+              <Form.Label>Enter New Password</Form.Label>
               <Controller control={control} name="password"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control onChange={onChange} value={value} ref={ref}
                     type="password"
                     isInvalid={errors.registrationId}
-                    placeholder="Enter Old Password"
+                    placeholder="Enter Password"
                   />)}
                 rules={{ required: true }}
               />
@@ -78,12 +78,13 @@ function ResetPassword() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Enter New Password</Form.Label>
+              <Form.Label>Confirm New Password</Form.Label>
               <Controller control={control} name="confirmPassword"
                 defaultValue=""
                 rules={{
-                  required: 'Please enter the new password',
-                  }}
+                  required: 'Please enter the password',
+                  validate: value => value === pwd || "The passwords do not match"
+                }}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control onChange={onChange} value={value} ref={ref}
                     isInvalid={errors.password}

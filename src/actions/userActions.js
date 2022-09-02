@@ -25,6 +25,7 @@ const login = (userDetails) => {
 
 const logout = () => {
     authService.logout();
+    localStorage.removeItem("authToken");
     return { type: userConstants.LOGOUT };
 }
 

@@ -7,7 +7,8 @@ const initialState = {
     isFirstTimeLogin: true,
     isLoginSuccess: false,
     isResetPasswordSuccess: false,
-    registrationId: ''
+    registrationId: '',
+    password: ''
   }
 
 const user = (state = initialState, action) => {
@@ -28,17 +29,20 @@ const user = (state = initialState, action) => {
                 role: '',
                 isFirstTimeLogin: true,
                 isLoginSuccess: false,
-                isResetPasswordSuccess: false
+                isResetPasswordSuccess: false,
+                password: ''
             }
         case userConstants.RESET_PASSWORD_SUCCESS:
             return {
                 ...state,
-                isResetPasswordSuccess: true
+                isResetPasswordSuccess: true,
+                password: ''
             }
         case userConstants.RESET_PASSWORD_FAILURE:
             return {
                 ...state,
-                isResetPasswordSuccess: false
+                isResetPasswordSuccess: false,
+                password: ''
             }
         default: 
             return state

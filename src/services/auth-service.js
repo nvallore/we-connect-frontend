@@ -14,8 +14,11 @@ export function login(loginDetails) {
                 //     name:'User 1',
                 //     role: 'student'
                 // };
-                console.log(response);
-                return response?.data;
+                const userData = {
+                    ...response?.data,
+                    password: loginDetails?.password
+                };
+                return userData;
             })
 }
 
