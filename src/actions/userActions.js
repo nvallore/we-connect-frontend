@@ -9,6 +9,7 @@ const login = (userDetails) => {
             .then(
                 user => { 
                     dispatch(success(user));
+                    localStorage.setItem('authToken', user?.token);
                     // dispatch(alertActions.error('Wrong Credentials'));
                 },
                 error => {

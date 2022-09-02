@@ -16,14 +16,17 @@ import user from './reducers/user';
 import { BrowserRouter } from 'react-router-dom';
 import alert from './reducers/alert';
 
+// Set deault
+axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 // API Request interceptor
 axios.interceptors.request.use(
   config => {
-    // const token = localStorageService.getAccessToken()
-    // if (token) {
-    //   config.headers['Authorization'] = 'Bearer ' + token
-    // }
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      config.headers['Authorization'] = 'Bearer ' + token
+    }
     console.log('In interceptor')
     // dispatch(allActions.loadingActions.showLoader)
     document.getElementById('api-loader').classList.remove('hide-loader');
@@ -50,12 +53,12 @@ axios.interceptors.response.use(
     document.getElementById('api-loader').classList.remove('show-loader');
     const originalRequest = error.config
     // dispatch(allActions.loadingActions.hideLoader)
-    if (
-      error.response.status === 401 &&
-      originalRequest.url === 'http://127.0.0.1:3000/v1/auth/token'
-    ) {
-      return Promise.reject(error)
-    }
+    // if (
+    //   error.response.status === 401 &&
+    //   originalRequest.url === 'http://127.0.0.1:3000/v1/auth/token'
+    // ) {
+    //   return Promise.reject(error)
+    // }
 
     return Promise.reject(error)
   }

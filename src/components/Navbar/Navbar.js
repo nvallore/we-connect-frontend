@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Navbar.module.css';
-import { Link,  useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo_image from '../../images/logo192.png';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -12,7 +12,7 @@ import userActions from '../../actions/userActions';
 
 
 function CollapsibleNavbar() {
-  const location = useLocation(); 
+  const location = useLocation();
   const [url, setUrl] = useState(null);
   useEffect(() => {
     setUrl(location.pathname);
@@ -33,38 +33,38 @@ function CollapsibleNavbar() {
   }
 
   return (
-  <div className={styles.Navbar} data-testid="Navbar">
-    <div className='d-flex flex-direction-row bg-light justify-content-between align-items-center'>
+    <div className={styles.Navbar} data-testid="Navbar">
+      <div className='d-flex flex-direction-row bg-light justify-content-between align-items-center'>
         {/* Header navigation menu items */}
         <Navbar collapseOnSelect expand="sm" bg="light" variant="light" className="w-100">
-      <Container fluid>
-        <Navbar.Brand as={Link} to="/dashboard"><img src={logo_image} alt='logo_image' className={styles.logoImage}></img> Welcome {user.name}</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-        <Form className="d-flex w-100">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            {/* <Button variant="outline-success">Search</Button> */}
-          </Form>
-          <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/login">My Schedule</Nav.Link>
-            {/* <Nav.Link as={Link} to="/login"></Nav.Link> */}
-            <Button onClick={logout}>Logout</Button>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+          <Container fluid>
+            <Navbar.Brand as={Link} to="/dashboard"><img src={logo_image} alt='logo_image' className={styles.logoImage}></img> Welcome {user.name}</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Form className="d-flex w-100">
+                <Form.Control
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                />
+                {/* <Button variant="outline-success">Search</Button> */}
+              </Form>
+              <Nav className="ms-auto">
+                <Nav.Link as={Link} to="/login">My Schedule</Nav.Link>
+                {/* <Nav.Link as={Link} to="/login"></Nav.Link> */}
+                <Button variant="dark" onClick={logout}>Logout</Button>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
       </div>
-  </div>
-);
-  }
+    </div>
+  );
+}
 
-  CollapsibleNavbar.propTypes = {};
+CollapsibleNavbar.propTypes = {};
 
-  CollapsibleNavbar.defaultProps = {};
+CollapsibleNavbar.defaultProps = {};
 
 export default CollapsibleNavbar;
