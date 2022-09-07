@@ -9,7 +9,7 @@ const login = (userDetails) => {
             .then(
                 user => { 
                     dispatch(success(user));
-                    localStorage.setItem('authToken', user?.token);
+                    localStorage.setItem('user', JSON.stringify(user));
                     // dispatch(alertActions.error('Wrong Credentials'));
                 },
                 error => {
@@ -27,7 +27,7 @@ const logout = () => {
     return dispatch => {
     authService.logout().then(
         res => { 
-            localStorage.removeItem("authToken");
+            localStorage.removeItem("user");
             dispatch(success());
         },
         error => {

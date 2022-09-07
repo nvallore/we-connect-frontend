@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './DashboardWrapper.module.css';
-import { BrowserRouter as Router, Routes , Route } from 'react-router-dom';
-import Dashboard from '../Dashboard/Dashboard';
+import { BrowserRouter as Router, Routes , Route, Outlet } from 'react-router-dom';
 import CollapsibleNavbar from '../Navbar/Navbar';
 
 function DashboardWrapper() {
@@ -12,9 +11,7 @@ function DashboardWrapper() {
           <CollapsibleNavbar />
           <div className='container mt-5'>
           {/* To display different components based on routes */}
-          <Routes>
-            <Route path='/' exact element={<Dashboard />} />
-          </Routes>
+          <Outlet />
         </div>
   </div>
 );

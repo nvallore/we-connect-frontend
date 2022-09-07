@@ -7,7 +7,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import Form from 'react-bootstrap/Form';
-import { Button } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import userActions from '../../actions/userActions';
 
 
@@ -45,10 +45,13 @@ function CollapsibleNavbar() {
         {/* Header navigation menu items */}
         <Navbar collapseOnSelect expand="sm" bg="light" variant="light" className="w-100">
           <Container fluid>
+            {/* <Col xs lg="6"> */}
             <Navbar.Brand as={Link} to="/dashboard"><img src={logo_image} alt='logo_image' className={styles.logoImage}></img> Welcome {user.name}</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-              <Form className="d-flex w-100">
+            <Row className="justify-content-md-center w-100">
+            <Col xs lg="8">
+              <Form className="d-flex">
                 <Form.Control
                   type="search"
                   placeholder="Search"
@@ -57,12 +60,16 @@ function CollapsibleNavbar() {
                 />
                 {/* <Button variant="outline-success">Search</Button> */}
               </Form>
+              </Col>
+                </Row>
               <Nav className="ms-auto">
-                <Nav.Link as={Link} to="/login">My Schedule</Nav.Link>
+                <Nav.Link as={Link} to="/login" className={styles.maxWidth}>My Schedule</Nav.Link>
+                <Nav.Link as={Link} to="/dashboard/profile" state={{ registrationId: user?.registrationId }} className={styles.maxWidth}>Profile</Nav.Link>
                 {/* <Nav.Link as={Link} to="/login"></Nav.Link> */}
                 <Button variant="dark" onClick={logout}>Logout</Button>
               </Nav>
             </Navbar.Collapse>
+            {/* </Col> */}
           </Container>
         </Navbar>
       </div>

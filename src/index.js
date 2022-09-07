@@ -15,11 +15,12 @@ import loader from './reducers/loader';
 import user from './reducers/user';
 import { BrowserRouter } from 'react-router-dom';
 import alert from './reducers/alert';
+import profile from './reducers/profile';
 
 // API Request interceptor
 axios.interceptors.request.use(
   config => {
-    const token = localStorage.getItem('authToken');
+    const token = JSON.parse(localStorage.getItem('user'))?.token;
     if (token) {
       config.headers['Authorization'] = 'Token ' + token
     }
@@ -64,7 +65,8 @@ const store = configureStore({
   reducer: {
     loader: loader,
     user: user,
-    alert: alert
+    alert: alert,
+    profile: profile
   },
 }
 )

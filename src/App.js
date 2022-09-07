@@ -9,6 +9,9 @@ import { alertActions } from './actions/alertActions';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import OnboardingUser from './components/OnboardingUser/OnboardingUser';
+import GuardedRoute from './components/GuardedRoute/GuardedRoute';
+import Dashboard from './components/Dashboard/Dashboard';
+import Profile from './components/Profile/Profile';
 // we get the LocalStorageService to access token
 // const localStorageService = LocalStorageService.getService()
 
@@ -42,11 +45,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate replace to="/login" />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/dashboard" element={<DashboardWrapper />} />
-        <Route path="/onboarding-user" element={<OnboardingUser />} />
+        <Route path="/reset-password" element={<GuardedRoute><ResetPassword /></GuardedRoute>} />
+
+        <Route path="dashboard" element={<GuardedRoute><DashboardWrapper /></GuardedRoute>}>
+            <Route path="" element={<Dashboard />} />
+            <Route path="profile" element={<Profile />} />
+        </Route>
+        <Route path="/onboarding-user" element={<GuardedRoute><OnboardingUser /></GuardedRoute>} />        
         
-        {/* <GuardedRoute path="/dashboard" element={<DashboardWrapper />} meta={{ auth: true }} /> */}
       </Routes>
       {alert?.message &&
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{

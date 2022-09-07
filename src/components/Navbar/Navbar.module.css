@@ -13,3 +13,6 @@
     color: red !important;
   }
   
+.maxWidth {
+  width: max-content;
+}
