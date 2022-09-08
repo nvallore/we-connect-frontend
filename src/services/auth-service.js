@@ -6,6 +6,7 @@ export function login(loginDetails) {
         username: loginDetails?.registrationId,
         password: loginDetails?.password
     };
+    // var response;
     return axios.post('http://127.0.0.1:8000/api/login', request).then(response => {
                 // response = {
                 //     isFirstTimeLogin: true,
