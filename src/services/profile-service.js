@@ -36,3 +36,86 @@ export function getProfileData(userRegistrationId) {
                 return mockresponse;
             });
 }
+
+export function editProfileData(userDetails) {
+
+    return axios.get('http://127.0.0.1:8000/api/hello').then(response => {
+                // response = {
+                //     isFirstTimeLogin: true,
+                //     status: 200,
+                //     token: '123123',
+                //     name:'User 1',
+                //     role: 'student'
+                // };
+                const profileData = {
+                    ...response?.data
+                };
+                return {
+                    status: 200,
+                    success: true
+                };
+            });
+}
+
+export function onboardProfileData(userDetails) {
+
+    return axios.get('http://127.0.0.1:8000/api/hello').then(response => {
+                // response = {
+                //     isFirstTimeLogin: true,
+                //     status: 200,
+                //     token: '123123',
+                //     name:'User 1',
+                //     role: 'student'
+                // };
+                const profileData = {
+                    ...response?.data
+                };
+                return {
+                    status: 200,
+                    success: true
+                };
+            });
+}
+
+export function searchProfile(searchQuery) {
+
+    return axios.get('http://127.0.0.1:8000/api/hello').then(response => {
+                // response = {
+                //     isFirstTimeLogin: true,
+                //     status: 200,
+                //     token: '123123',
+                //     name:'User 1',
+                //     role: 'student'
+                // };
+                const profileData = {
+                    ...response?.data
+                };
+                return [
+                    {
+                        profileName: 'Alumni 1 Fin',
+                        skills: 'React, HTML',
+                        registrationId: 'alumni1'
+                    },
+                    {
+                        profileName: 'Alumni 2 Fin',
+                        skills: 'React, HTML, JS',
+                        registrationId: 'alumni1'
+                    },
+                    {
+                        profileName: 'Alumni 3 Fin',
+                        skills: 'React, HTML, Java',
+                        registrationId: 'alumni1'
+                    },
+                    {
+                        profileName: 'Alumni 4 Fin',
+                        skills: 'React, HTML',
+                        registrationId: 'alumni1'
+                    },
+                    {
+                        profileName: 'Alumni 5 Fin',
+                        skills: 'React, HTML',
+                        registrationId: 'alumni1'
+                    }
+                ];
+            });
+}

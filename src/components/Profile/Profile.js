@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import styles from './Profile.module.css';
 import { Button, Card, Col, Container, ListGroup, Row } from 'react-bootstrap';
 import user_avtar from '../../images/user_avtar.png';
-import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import profileActions from '../../actions/profileActions';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 function Profile() {
@@ -14,15 +14,20 @@ function Profile() {
   const dispatch = useDispatch();
 
   const [profile, setProfile] = useState({});
+  
+  //Object which helps in navigation
+  const navigate = useNavigate();
 
-
-  let location = useLocation();
-  const registrationId = location?.state.registrationId;
+  const location = useLocation();
+  const profileRegistrationId = location?.state.registrationId;
+  
 
   const profileData = useSelector(state => state.profile)
 
+  let userRegistrationId = JSON.parse(localStorage.getItem('user'))?.username;
+
   useEffect(() => {
-    dispatch(profileActions.getProfileData(registrationId));
+    dispatch(profileActions.getProfileData(profileRegistrationId));
   }, []);
 
   useEffect(() => {
@@ -30,6 +35,19 @@ function Profile() {
       setProfile(profileData?.data);
     }
   }, [profileData]);
+
+  const navigateToEditProfile = () => {
+    navigate('/dashboard/profile/edit')
+  }
+
+  const scheduleSlots = () => {
+    console.log('In Schedule slots');
+    navigate('/dashboard/slots')
+  }
+
+  const scheduleCall = () => {
+    console.log('In Schedule calls');
+  }
 
   return (
     <div className={styles.Profile} data-testid="Profile">
@@ -47,8 +65,14 @@ function Profile() {
                 />
                 <p className="text-muted mb-1">{profile?.name}</p>
                 <div className="d-flex justify-content-center mb-2">
-                  {/* <Button variant="success" outline className="ms-1">Schedule Call</Button> */}
-                  <Button variant="success" outline className="ms-1">Edit Profile</Button>
+                  { userRegistrationId === profileRegistrationId?  profile?.roleName === 'Admin'?
+                    <><Button variant="success" onClick={navigateToEditProfile} outline className="ms-1">Edit Profile</Button>
+                    <Button variant="success" onClick={scheduleSlots} outline className="ms-1">Schedule Slots</Button></>
+                    :
+                    <Button variant="success" onClick={navigateToEditProfile} outline className="ms-1">Edit Profile</Button>
+                    : profileData?.roleName === 'Admin'?
+                    <Button variant="success" onClick={navigateToEditProfile} outline className="ms-1">Schedule Call</Button> : <></>
+                  }
                 </div>
               </Card.Body>
             </Card>

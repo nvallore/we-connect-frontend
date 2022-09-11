@@ -12,6 +12,8 @@ import OnboardingUser from './components/OnboardingUser/OnboardingUser';
 import GuardedRoute from './components/GuardedRoute/GuardedRoute';
 import Dashboard from './components/Dashboard/Dashboard';
 import Profile from './components/Profile/Profile';
+import EditProfileDetails from './components/EditProfileDetails/EditProfileDetails';
+import Slots from './components/Slots/Slots';
 // we get the LocalStorageService to access token
 // const localStorageService = LocalStorageService.getService()
 
@@ -50,6 +52,8 @@ function App() {
         <Route path="dashboard" element={<GuardedRoute><DashboardWrapper /></GuardedRoute>}>
             <Route path="" element={<Dashboard />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="profile/edit" element={<EditProfileDetails />} />
+            <Route path="slots" element={<Slots />} />
         </Route>
         <Route path="/onboarding-user" element={<GuardedRoute><OnboardingUser /></GuardedRoute>} />        
         
