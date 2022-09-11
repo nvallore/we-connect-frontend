@@ -111,6 +111,7 @@ function CollapsibleNavbar() {
               <Nav className="ms-auto">
                 <Nav.Link as={Link} to="/dashboard" className="maxWidth">My Schedule</Nav.Link>
                 <Nav.Link as={Link} to="/dashboard/profile" state={{ registrationId: user?.registrationId }} className="maxWidth">Profile</Nav.Link>
+                <Nav.Link as={Link} to="/schedule" className="maxWidth">My Schedule</Nav.Link>
                 {/* <Nav.Link as={Link} to="/login"></Nav.Link> */}
                 <Button variant="dark" onClick={logout}>Logout</Button>
               </Nav>
