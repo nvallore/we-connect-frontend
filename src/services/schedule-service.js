@@ -36,26 +36,34 @@ export function getSlotsData(reqUser) {
 export function createSlots(slotDetails) {
 
     return axios.post('http://127.0.0.1:3001/createSlot', slotDetails).then(response => {
-                return response;
-            });
+        return response;
+    });
 }
 
 export function deleteUserSlot(slotId) {
 
     return axios.post('http://127.0.0.1:3001/deleteSlot', slotId).then(response => {
-                return response;
-            });
+        return response;
+    });
 }
 
+// export function bookMentorSlot(payload) {
+
+//     console.log(payload);
+//     const getAuthURLPayload = {
+//         code: payload.code,
+//         redirectUri: payload.redirectUri
+//     };
+
+//     return axios.post('http://127.0.0.1:3001/getToken', getAuthURLPayload).then(response => {
+//                 console.log(response);
+//                 return response;
+//             });
+// }
+
 export function bookMentorSlot(payload) {
-
-    console.log(payload);
-    const getAuthURLPayload = {
-        redirectUri: payload.redirectUri
-    };
-
-    return axios.post('http://127.0.0.1:3001/getAuthURL', getAuthURLPayload).then(response => {
-                console.log(response);
-                return response;
-            });
+    return axios.post('http://127.0.0.1:3001/bookSlot', payload).then(response => {
+        console.log(response);
+        return response;
+    });
 }

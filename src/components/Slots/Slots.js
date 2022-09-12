@@ -11,17 +11,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { bookMentorSlot, createSlots, deleteUserSlot } from '../../services/schedule-service';
 import moment from "moment";
-
+import { alertActions } from '../../actions/alertActions';
 
 function Slots() {
 
+
   const [selectedDate, setSelectedDate] = useState(new Date());
+
   const [userSlotsData, setUserSlotsData] = useState([]);
   const [excludeSlotsData, setExcludeSlotsData] = useState([]);
 
   const user = useSelector(state => state.user)
 
   const [show, setShow] = useState(false);
+
+  const [showSlotBookingConfirmation, setShowSlotBookingConfirmation] = useState(false);
+
+  const [selectedSlotBookingDetails, setSelectedSlotBookingDetails] = useState({});
 
   const dispatch = useDispatch();
 
@@ -31,6 +37,8 @@ function Slots() {
   const isScheduleCall = requestProfile?.scheduleCall || false;
 
   const handleClose = () => setShow(false);
+  const handleSlotBookingConfirmationClose = () => setShowSlotBookingConfirmation(false);
+
   const handleShow = () => setShow(true);
 
   const handleChange = date => {
@@ -90,22 +98,28 @@ function Slots() {
     setExcludeSlotsData(arrExcludedTimes);
   };
 
-  const bookSlot = (slotId) => {
+  const bookSlot = (slotDetails) => {
+    setShowSlotBookingConfirmation(true);
+    setSelectedSlotBookingDetails(slotDetails);
+  };
+
+  const scheduleCall = () => {
     const reqPayload = {
-      slotId: slotId,
+      slotId: selectedSlotBookingDetails?.slotId,
       menteeId: user?.registrationId,
       mentorId: requestProfile?.id,
       attendees: [requestProfile?.email, user?.email],
-      redirectUri: 'http://localhost:3001/echo'
+      redirectUri: 'http://localhost:3000'
     };
-    console.log(reqPayload);
     bookMentorSlot(reqPayload).then(res => {
       if (res?.status === 200) {
         dispatch(scheduleActions.getSlotsData(requestProfile?.id));
+        setShowSlotBookingConfirmation(false);
+      } else {
+        dispatch(alertActions.error('Failed to Schedule Meeting, Please try again!!'));
       }
     });
-  };
-
+  }
 
   useEffect(() => {
     dispatch(scheduleActions.getSlotsData(requestProfile?.id));
@@ -124,7 +138,6 @@ function Slots() {
     <div className={styles.Slots} data-testid="Slots">
 
       <>
-
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Add Slots here</Modal.Title>
@@ -159,6 +172,32 @@ function Slots() {
         </Modal>
       </>
 
+      <>
+        <Modal show={showSlotBookingConfirmation} onHide={handleSlotBookingConfirmationClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Schedule Call</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Card>
+              <Card.Title>Please confirm the below details</Card.Title>
+              <Card.Body>
+                Mentor Name: {selectedSlotBookingDetails?.mentorName}<br />
+                Schedule Date: {new Date(selectedSlotBookingDetails?.date).toLocaleDateString()}<br />
+                Schedule Time: {new Date(selectedSlotBookingDetails?.date).toLocaleTimeString()}
+              </Card.Body>
+            </Card>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleSlotBookingConfirmationClose}>
+              Close
+            </Button>
+            <Button variant="dark" onClick={scheduleCall}>
+              Schedule Call
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+
       <Card mt-10>
         <Card.Title>{
           !isScheduleCall ? <>Your Slots <Button variant='dark' className='pull-right' onClick={handleShow}>Add Slot</Button></>
@@ -177,7 +216,7 @@ function Slots() {
                       {
                         !isScheduleCall ? <Button variant='secondary' disabled={!value.isAvailable} onClick={() => deleteSlot(value.slotId)}>Delete Slot</Button>
                           :
-                          <Button variant='secondary' disabled={!value.isAvailable} onClick={() => bookSlot(value.slotId)}>Book Slot</Button>
+                          <Button variant='secondary' disabled={!value.isAvailable} onClick={() => bookSlot(value)}>Book Slot</Button>
                       }
                     </Card.Body>
                   </ListGroup.Item></>
