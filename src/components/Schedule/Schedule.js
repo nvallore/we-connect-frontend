@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Container, Row, Col, } from 'react-bootstrap'
-import TableContainer from './TableContainer';
+// import TableContainer from './TableContainer';
+import PaginatedTable from './PaginatedTable';
 import AddMoMButton from './AddMoMButton';
 // import { useState } from "react";
 class AddMoM extends React.Component {
@@ -67,6 +68,7 @@ const Schedule = () => {
             },
             {
                 Header: "MoM",
+                accessor: "textMoM",
                 type: "text",
                 Cell: ({ cell }) => {
                     let value = cell.row.original.notes;
@@ -77,8 +79,8 @@ const Schedule = () => {
                 },
             },
             {
-                Header: "",
-                accessor: "addMoM",
+                Header: " ",
+                // accessor: "addMoM",
                 type: "button",
                 Cell: ({ cell }) => {
                     let value = cell.row.original.notes;
@@ -109,7 +111,7 @@ const Schedule = () => {
             <Row><center><h1>My Schedule</h1></center></Row>
             <Row>
                 <Col>
-                    <TableContainer columns={columnSchedule} data={items} />
+                    <PaginatedTable columns={columnSchedule} data={items} />
                 </Col>
             </Row>
         </Container>
