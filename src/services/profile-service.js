@@ -94,27 +94,32 @@ export function searchProfile(searchQuery) {
                     {
                         profileName: 'Alumni 1 Fin',
                         skills: 'React, HTML',
-                        registrationId: 'alumni1'
+                        registrationId: 'alumni1',
+                        roleName: 'Admin'
                     },
                     {
                         profileName: 'Alumni 2 Fin',
                         skills: 'React, HTML, JS',
-                        registrationId: 'alumni1'
+                        registrationId: 'alumni1',
+                        roleName: 'Admin'
                     },
                     {
                         profileName: 'Alumni 3 Fin',
                         skills: 'React, HTML, Java',
-                        registrationId: 'alumni1'
+                        registrationId: 'alumni1',
+                        roleName: 'Admin'
                     },
                     {
                         profileName: 'Alumni 4 Fin',
                         skills: 'React, HTML',
-                        registrationId: 'alumni1'
+                        registrationId: 'alumni1',
+                        roleName: 'Admin'
                     },
                     {
                         profileName: 'Alumni 5 Fin',
                         skills: 'React, HTML',
-                        registrationId: 'alumni1'
+                        registrationId: 'alumni1',
+                        roleName: 'Admin'
                     }
                 ];
             });

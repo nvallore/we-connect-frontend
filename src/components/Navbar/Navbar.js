@@ -60,7 +60,7 @@ function CollapsibleNavbar() {
   const navigateToProfile = (regId) => {
     console.log(regId);
     setSearchResult([])
-    navigate('/dashboard/profile', { state: { registrationId: regId } })
+    navigate('/dashboard/profile', { state: { registrationId: regId, fromSearch: true } })
   }
 
   return (

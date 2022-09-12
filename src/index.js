@@ -11,6 +11,7 @@ import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader'
 import loader from './reducers/loader';
 import user from './reducers/user';
+import schedule from './reducers/schedule';
 import { BrowserRouter } from 'react-router-dom';
 import alert from './reducers/alert';
 import profile from './reducers/profile';
@@ -65,7 +66,8 @@ const store = configureStore({
     loader,
     user,
     alert,
-    profile
+    profile,
+    schedule
   }
 }
 )

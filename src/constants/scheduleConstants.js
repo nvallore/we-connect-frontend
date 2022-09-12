@@ -1,0 +1,5 @@
+export const scheduleConstants = {
+    LOAD_SLOTS_DATA: 'LOAD_SLOTS_DATA',
+    SLOTS_DATA_SUCCESS: 'SLOTS_DATA_SUCCESS',
+    SLOTS_DATA_FAILURE: 'SLOTS_DATA_FAILURE',
+};

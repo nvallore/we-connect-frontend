@@ -14,25 +14,32 @@ function Profile() {
   const dispatch = useDispatch();
 
   const [profile, setProfile] = useState({});
-  
+
   //Object which helps in navigation
   const navigate = useNavigate();
 
   const location = useLocation();
-  const profileRegistrationId = location?.state.registrationId;
-  
+  const profileRegistrationId = location?.state?.registrationId;
+  const isFromSearch = location?.state?.fromSearch || false;
+
 
   const profileData = useSelector(state => state.profile)
 
   let userRegistrationId = JSON.parse(localStorage.getItem('user'))?.username;
 
   useEffect(() => {
-    dispatch(profileActions.getProfileData(profileRegistrationId));
+    dispatch(profileActions.getProfileData(profileRegistrationId, isFromSearch));
   }, []);
 
   useEffect(() => {
-    if (profileData.data) {
-      setProfile(profileData?.data);
+    if (isFromSearch) {
+      if (profileData.searchData) {
+        setProfile(profileData?.searchData);
+      }
+    } else {
+      if (profileData.data) {
+        setProfile(profileData?.data);
+      }
     }
   }, [profileData]);
 
@@ -41,12 +48,11 @@ function Profile() {
   }
 
   const scheduleSlots = () => {
-    console.log('In Schedule slots');
-    navigate('/dashboard/slots')
+    navigate('/dashboard/slots', { state: { id: profile?.regId, roleId: profile?.roleName, name: profile?.name, email: profile?.email } })
   }
 
-  const scheduleCall = () => {
-    console.log('In Schedule calls');
+  const navigateToScheduleCall = () => {
+    navigate('/dashboard/slots', { state: { id: profile?.regId, roleId: profile?.roleName, name: profile?.name, email: profile?.email, scheduleCall: true } })
   }
 
   return (
@@ -65,13 +71,13 @@ function Profile() {
                 />
                 <p className="text-muted mb-1">{profile?.name}</p>
                 <div className="d-flex justify-content-center mb-2">
-                  { userRegistrationId === profileRegistrationId?  profile?.roleName === 'Admin'?
+                  {userRegistrationId === profileRegistrationId ? profile?.roleName === 'Admin' ?
                     <><Button variant="success" onClick={navigateToEditProfile} outline className="ms-1">Edit Profile</Button>
-                    <Button variant="success" onClick={scheduleSlots} outline className="ms-1">Schedule Slots</Button></>
+                      <Button variant="success" onClick={scheduleSlots} outline className="ms-1">Schedule Slots</Button></>
                     :
                     <Button variant="success" onClick={navigateToEditProfile} outline className="ms-1">Edit Profile</Button>
-                    : profileData?.roleName === 'Admin'?
-                    <Button variant="success" onClick={navigateToEditProfile} outline className="ms-1">Schedule Call</Button> : <></>
+                    : profile?.roleName?.toLowerCase() === 'admin' ?
+                      <Button variant="success" onClick={navigateToScheduleCall} outline className="ms-1">Schedule Call</Button> : <></>
                   }
                 </div>
               </Card.Body>
@@ -169,7 +175,7 @@ function Profile() {
                     {profile?.interests?.map(interest => (
                       <><Card.Text className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{interest}</Card.Text></>
                     ))}
-                    </Card.Body>
+                  </Card.Body>
                 </Card>
               </Col>
 
@@ -181,7 +187,7 @@ function Profile() {
                     {profile?.expertise?.map(eachExpertise => (
                       <><Card.Text className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{eachExpertise}</Card.Text></>
                     ))}
-                    </Card.Body>
+                  </Card.Body>
                 </Card>
               </Col>
 
