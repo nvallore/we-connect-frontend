@@ -25,9 +25,8 @@ function ResetPassword() {
 
   // navigate
   useEffect(() => {
-    console.log('in reset password', user);
     if(user.isResetPasswordSuccess && user.isFirstTimeLogin) {
-      navigate('/onboarding-user')
+      navigate('/dashboard/profile/edit', { state: { isOnboardingFlow: true } })
     } else if(user.isResetPasswordSuccess && !user.isFirstTimeLogin) {
       navigate('/dashboard')
     }

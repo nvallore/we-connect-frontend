@@ -1,38 +1,71 @@
 import axios from "axios";
 
 export function getProfileData(userRegistrationId) {
-    const request = {
-        username: userRegistrationId
-    };
-    const mockresponse = {
-        regId: 'alumni1',
-        stream: 'CSE',
-        name: 'Huckleberry',
-        mobile: 123123123123,
-        email: 'example@example.com',
-        roleName: 'Admin',
-        yearOfJoining: '2014',
-        yearOfPassing: '2018',
-        skills: ['React','HTML', 'CSS', 'Bootstrap'],
-        interests: ['Blockchain','Web3'],
-        linkedInProfile: 'https://linkedin.com',
-        yearsOfExperince: 3,
-        expertise: ['Frontend','Python'],
-        higherEducation: [{instituteName: 'Bits', mastersSubject: 'CSE', yearOfCompletion: '2021'}],
-        workExperience: [{company: 'We Connect', startYear: '2021', designation: 'MTS', role: 'Full Stack'}],
-        thankyouNotes: [{fromName: 'Fin', note: 'Thank you note 1'}, {fromName: 'Fin', note: 'Thank you note 2'}]
-    };
-    return axios.get('http://127.0.0.1:8000/api/hello').then(response => {
-                // response = {
-                //     isFirstTimeLogin: true,
-                //     status: 200,
-                //     token: '123123',
-                //     name:'User 1',
-                //     role: 'student'
-                // };
+
+    return axios.get(`http://127.0.0.1:8001/api/completeprofiledetails/${userRegistrationId}`).then(response => {
                 const profileData = {
                     ...response?.data
                 };
-                return mockresponse;
+                return profileData;
+            });
+}
+
+export function editProfileData(userDetails) {
+    return axios.put(`http://127.0.0.1:8001/api/completeprofiledetails/${userDetails?.regId}`, userDetails).then(response => {
+                return response;
+            });
+}
+
+export function onboardProfileData(userDetails) {
+
+    return axios.post('http://127.0.0.1:8001/api/completeprofile', userDetails).then(response => {
+                return response;
+            });
+}
+
+export function searchProfile(searchQuery) {
+    const mockResponse = [
+        {
+            name: 'Alumni 1 Fin',
+            skills: 'React, HTML',
+            regId: 'alumni1',
+            stream: 'CSE',
+            expertise: 'React, HTML'
+        },
+        {
+            profileName: 'Alumni 2 Fin',
+            skills: 'React, HTML, JS',
+            registrationId: 'alumni1',
+            roleName: 'Admin'
+        },
+        {
+            profileName: 'Alumni 3 Fin',
+            skills: 'React, HTML, Java',
+            registrationId: 'alumni1',
+            roleName: 'Admin'
+        },
+        {
+            profileName: 'Alumni 4 Fin',
+            skills: 'React, HTML',
+            registrationId: 'alumni1',
+            roleName: 'Admin'
+        },
+        {
+            profileName: 'Alumni 5 Fin',
+            skills: 'React, HTML',
+            registrationId: 'alumni1',
+            roleName: 'Admin'
+        }
+    ];
+    return axios.get(`http://127.0.0.1:8001/api/filterprofile?${searchQuery}`).then(response => {
+                const searchData = response?.data;
+                return searchData;
+            });
+}
+
+export function submitThankYouNote(noteRequest) {
+
+    return axios.post('http://127.0.0.1:8001/api/thankyounotes', noteRequest).then(response => {
+                return response;
             });
 }

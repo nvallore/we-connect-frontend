@@ -9,7 +9,8 @@ const initialState = {
     isResetPasswordSuccess: false,
     registrationId: '',
     password: '',
-    isLogoutSuccess: false
+    isLogoutSuccess: false,
+    email: ''
   }
 
 const user = (state = initialState, action) => {

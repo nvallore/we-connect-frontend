@@ -16,3 +16,18 @@
 .maxWidth {
   width: max-content;
 }
+
+.searchResult {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+
+}
+
+.positionRelative {
+  position: relative;
+}
+
+.text-align-left {
+  text-align: left;
+}

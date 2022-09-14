@@ -6,13 +6,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit'
-import rootReducer from './reducers'
 import axios from 'axios'
-import allActions from './actions'
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader'
 import loader from './reducers/loader';
 import user from './reducers/user';
+import schedule from './reducers/schedule';
 import { BrowserRouter } from 'react-router-dom';
 import alert from './reducers/alert';
 import profile from './reducers/profile';
@@ -60,14 +59,16 @@ axios.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
 //Redux Intilization
 const store = configureStore({
   reducer: {
-    loader: loader,
-    user: user,
-    alert: alert,
-    profile: profile
-  },
+    loader,
+    user,
+    alert,
+    profile,
+    schedule
+  }
 }
 )
 
