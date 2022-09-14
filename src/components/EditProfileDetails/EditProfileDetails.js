@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button, Card, Container, Row, Col, } from 'react-bootstrap'
 import { useLocation, useNavigate } from 'react-router-dom';
 import profileActions from '../../actions/profileActions';
+import DatePicker from "react-datepicker";
 
 function EditProfileDetails() {
 
@@ -73,11 +74,11 @@ function EditProfileDetails() {
   return (
     <div className={styles.EditProfileDetails} data-testid="EditProfileDetails">
       <Card>
-        <Card.Title>Edit Profile Details</Card.Title>
+        <Card.Title>{isOnboardingFlow? 'Enter your profile details' : 'Edit Profile Details'}</Card.Title>
         <Card.Body>
           <Form onSubmit={handleSubmit(submitUserDetails)} onReset={reset} >
             <Form.Group className="mb-3">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Name<span className={styles.requiredField}> *</span></Form.Label>
               <Controller control={control} name="name"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -93,7 +94,7 @@ function EditProfileDetails() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Mobile No.</Form.Label>
+              <Form.Label>Mobile No.<span className={styles.requiredField}> *</span></Form.Label>
               <Controller control={control} name="mobile"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -109,7 +110,7 @@ function EditProfileDetails() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Email Id</Form.Label>
+              <Form.Label>Email Id<span className={styles.requiredField}> *</span></Form.Label>
               <Controller control={control} name="email"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -123,9 +124,32 @@ function EditProfileDetails() {
                 Email ID is required
               </Form.Control.Feedback>
             </Form.Group>
+            
+            {isOnboardingFlow && 
+            <Form.Group className="mb-3">
+              <Form.Label>Year Of Joining<span className={styles.requiredField}> *</span></Form.Label>
+              <Controller control={control} name="yearOfJoining"
+                defaultValue=""
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <DatePicker
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    selected={new Date()}
+                    showYearPicker
+                    dateFormat="yyyy"
+                    maxDate={new Date()}
+                  />
+                )}
+                  rules={{ required: true }}
+              />
+              <Form.Control.Feedback type="invalid">
+                This field is required
+              </Form.Control.Feedback>
+            </Form.Group>
+            }
 
             <Form.Group className="mb-3">
-              <Form.Label>Stream</Form.Label>
+              <Form.Label>Stream<span className={styles.requiredField}> *</span></Form.Label>
               <Controller control={control} name="stream"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -156,7 +180,7 @@ function EditProfileDetails() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Skills</Form.Label>
+              <Form.Label>Skills<span className={styles.requiredField}> *</span></Form.Label>
               <Controller control={control} name="skills"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -174,7 +198,7 @@ function EditProfileDetails() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Interests</Form.Label>
+              <Form.Label>Interests<span className={styles.requiredField}> *</span></Form.Label>
               <Controller control={control} name="interests"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -205,18 +229,48 @@ function EditProfileDetails() {
 
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Years Of Experince</Form.Label>
-              <Controller control={control} name="yearsOfExperince"
-                defaultValue=""
-                render={({ field: { onChange, onBlur, value, ref } }) => (
-                  <Form.Control onChange={onChange} value={value} ref={ref}
-                    type="number" 
-                    isInvalid={errors.yearsOfExperince}
-                    placeholder="Enter Your Experince"
-                  />)}
-              />
-            </Form.Group>
+            { user?.role?.toLowerCase() === 'alumni' &&
+              <>
+              
+              <Form.Group className="mb-3">
+                <Form.Label>Years Of Experince<span className={styles.requiredField}> *</span></Form.Label>
+                <Controller control={control} name="yearsOfExperince"
+                  defaultValue=""
+                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                    <Form.Control onChange={onChange} value={value} ref={ref}
+                      type="number"
+                      isInvalid={errors.yearsOfExperince}
+                      placeholder="Enter Your Experince" />)}
+                  rules={{ required: true }} />
+                <Form.Control.Feedback type="invalid">
+                  Years of Experince is required
+                </Form.Control.Feedback>
+              </Form.Group>
+              
+              {isOnboardingFlow && 
+              <Form.Group className="mb-3">
+                  <Form.Label>Year Of Passout<span className={styles.requiredField}> *</span></Form.Label>
+                  <Controller control={control} name="yearOfPassout"
+                    defaultValue=""
+                    render={({ field: { onChange, onBlur, value, ref } }) => (
+                      <DatePicker
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    selected={new Date()}
+                    showYearPicker
+                    dateFormat="yyyy"
+                    maxDate={new Date()}
+                  />
+                  )}
+                    rules={{ required: true }} />
+                  <Form.Control.Feedback type="invalid">
+                    Years of Passout is required
+                  </Form.Control.Feedback>
+              </Form.Group>
+            }
+              
+              </>
+            }
 
             <Button type="submit"
               className="btn btn-primary">

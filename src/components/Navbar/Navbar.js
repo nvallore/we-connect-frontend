@@ -47,7 +47,7 @@ function CollapsibleNavbar() {
   const handleSearch = (event) => {
     const searchText = event.target.value;
     if(searchText.length) {
-      searchProfile(searchProfile).then(
+      searchProfile(searchText).then(
         (searchResult) => {
           setSearchResult(searchResult);
         }
