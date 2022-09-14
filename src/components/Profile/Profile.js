@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Profile.module.css';
-import { Button, Card, Col, Container, ListGroup, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, ListGroup, Row } from 'react-bootstrap';
 import user_avtar from '../../images/user_avtar.png';
 import { useDispatch, useSelector } from 'react-redux';
 import profileActions from '../../actions/profileActions';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { submitThankYouNote } from '../../services/profile-service';
+import moment from 'moment';
 
 
 function Profile() {
@@ -14,6 +16,8 @@ function Profile() {
   const dispatch = useDispatch();
 
   const [profile, setProfile] = useState({});
+
+  const [thankyouNote, setThankyouNote] = useState('');
 
   //Object which helps in navigation
   const navigate = useNavigate();
@@ -25,11 +29,13 @@ function Profile() {
 
   const profileData = useSelector(state => state.profile)
 
-  let userRegistrationId = JSON.parse(localStorage.getItem('user'))?.username;
+  const userDetails = JSON.parse(localStorage.getItem('user'));
+  const userRegistrationId = userDetails?.username;
 
   useEffect(() => {
+    console.log(profileRegistrationId, isFromSearch);
     dispatch(profileActions.getProfileData(profileRegistrationId, isFromSearch));
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     if (isFromSearch) {
@@ -55,6 +61,25 @@ function Profile() {
     navigate('/dashboard/slots', { state: { id: profile?.regId, roleId: profile?.roleName, name: profile?.name, email: profile?.email, scheduleCall: true } })
   }
 
+  const createThankYouNote = () => {
+    const request = {
+      note: thankyouNote.trim(),
+      regId: profile?.regId,
+      fromName: userDetails?.name,
+      date: moment(new Date()).format('YYYY-MM-DD')
+    };
+    submitThankYouNote(request).then(res => {
+      dispatch(profileActions.getProfileData(profileRegistrationId, isFromSearch));
+      setThankyouNote('');
+    });
+  }
+
+  const handleThankYouNoteChange = (event) => {
+    const note = event.target.value;
+    setThankyouNote(note);
+  }
+  
+
   return (
     <div className={styles.Profile} data-testid="Profile">
       <Container className="py-5">
@@ -71,12 +96,12 @@ function Profile() {
                 />
                 <p className="text-muted mb-1">{profile?.name}</p>
                 <div className="d-flex justify-content-center mb-2">
-                  {userRegistrationId === profileRegistrationId ? profile?.roleName === 'Admin' ?
+                  {userRegistrationId === profileRegistrationId ? profile?.roleName?.toLowerCase() === 'alumni' ?
                     <><Button variant="success" onClick={navigateToEditProfile} outline className="ms-1">Edit Profile</Button>
                       <Button variant="success" onClick={scheduleSlots} outline className="ms-1">Schedule Slots</Button></>
                     :
                     <Button variant="success" onClick={navigateToEditProfile} outline className="ms-1">Edit Profile</Button>
-                    : profile?.roleName?.toLowerCase() === 'admin' ?
+                    : profile?.roleName?.toLowerCase() === 'alumni' ?
                       <Button variant="success" onClick={navigateToScheduleCall} outline className="ms-1">Schedule Call</Button> : <></>
                   }
                 </div>
@@ -84,14 +109,21 @@ function Profile() {
             </Card>
 
             <Card className="mb-4 mb-lg-0">
+              <Card.Title className="m-auto align-self-center">Thank You Notes</Card.Title>
+              <hr />
               <Card.Body className="p-0">
-                {profile?.thankyouNotes?.map(note => (
+                {profile?.tyn?.map(note => (
                   <><Card.Title>{note?.fromName}</Card.Title>
                     <Card.Text>
                       {note?.note}
                     </Card.Text><hr /></>
                 ))}
               </Card.Body>
+              {userRegistrationId !== profileRegistrationId && <Card.Body>
+                <Form.Control as="textarea" rows={3} placeholder="Express your gratitude here..." value={thankyouNote} name={thankyouNote} onChange={handleThankYouNoteChange}/>
+                <Button variant="secondary" onClick={createThankYouNote} outline className="mt-2">Post</Button>
+              </Card.Body>
+              }
             </Card>
           </Col>
           <Col lg="8">
@@ -160,8 +192,8 @@ function Profile() {
                   <Card.Body>
                     <Card.Text className="mb-4">Skills</Card.Text>
                     <hr />
-                    {profile?.skills?.map(skill => (
-                      <><Card.Text className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{skill}</Card.Text></>
+                    {profile?.skills?.split(',').map(skill => (
+                      <><Card.Text className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{skill.trim()}</Card.Text></>
                     ))}
                   </Card.Body>
                 </Card>
@@ -172,8 +204,8 @@ function Profile() {
                   <Card.Body>
                     <Card.Text className="mb-4">Interests</Card.Text>
                     <hr />
-                    {profile?.interests?.map(interest => (
-                      <><Card.Text className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{interest}</Card.Text></>
+                    {profile?.interests?.split(',').map(interest => (
+                      <><Card.Text className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{interest.trim()}</Card.Text></>
                     ))}
                   </Card.Body>
                 </Card>
@@ -184,8 +216,8 @@ function Profile() {
                   <Card.Body>
                     <Card.Text className="mb-4">Expertise</Card.Text>
                     <hr />
-                    {profile?.expertise?.map(eachExpertise => (
-                      <><Card.Text className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{eachExpertise}</Card.Text></>
+                    {profile?.expertise?.split(',').map(eachExpertise => (
+                      <><Card.Text className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>{eachExpertise.trim()}</Card.Text></>
                     ))}
                   </Card.Body>
                 </Card>

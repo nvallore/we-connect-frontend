@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Schedule from './components/Schedule/Schedule';
 import DashboardWrapper from './components/DashboardWrapper/DashboardWrapper';
-import ScheduleWrapper from './components/ScheduleWrapper/ScheduleWrapper';
 import { useSelector, useDispatch } from 'react-redux'
 import { alertActions } from './actions/alertActions';
 import Snackbar from '@mui/material/Snackbar';
@@ -51,14 +50,12 @@ function App() {
         <Route path="/" element={<Navigate replace to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/reset-password" element={<GuardedRoute><ResetPassword /></GuardedRoute>} />
-        <Route path="schedule" element={<GuardedRoute><ScheduleWrapper /></GuardedRoute>} >
-            <Route path="" element={<Schedule />} />
-          </Route>
         <Route path="dashboard" element={<GuardedRoute><DashboardWrapper /></GuardedRoute>}>
             <Route path="" element={<Dashboard />} />
             <Route path="profile" element={<Profile />} />
             <Route path="profile/edit" element={<EditProfileDetails />} />
             <Route path="slots" element={<Slots />} />
+            <Route path="schedule" element={<Schedule />} />
         </Route>
         <Route path="/onboarding-user" element={<GuardedRoute><OnboardingUser /></GuardedRoute>} />        
         

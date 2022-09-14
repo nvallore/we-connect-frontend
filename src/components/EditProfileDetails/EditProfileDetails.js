@@ -14,6 +14,8 @@ function EditProfileDetails() {
 
   const profile = useSelector(state => state.profile)
 
+  const user = useSelector(state => state.user)
+
   //event dispatcher
   const dispatch = useDispatch();
 
@@ -21,7 +23,7 @@ function EditProfileDetails() {
   const isOnboardingFlow = location?.state?.isOnboardingFlow || false;
 
   useEffect(() => {
-    if (profile.data) {
+    if (profile.data && !isOnboardingFlow) {
       const profileData = profile?.data;
       setValue('name', profileData?.name);
       setValue('stream', profileData?.stream);
@@ -55,11 +57,16 @@ function EditProfileDetails() {
 
   // Submiting data to login
   const submitUserDetails = (data) => {
-    console.log(data);
+    const request = {
+      ...data,
+      regId: user?.registrationId,
+      roleName: user?.role
+    };
+    console.log(request);
   if(!isOnboardingFlow){
-    dispatch(profileActions.editProfileData(data));
+    dispatch(profileActions.editProfileData(request));
   } else {
-    dispatch(profileActions.onboardProfileData(data));
+    dispatch(profileActions.onboardProfileData(request));
   }
   };
 
@@ -114,6 +121,22 @@ function EditProfileDetails() {
               />
               <Form.Control.Feedback type="invalid">
                 Email ID is required
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Stream</Form.Label>
+              <Controller control={control} name="stream"
+                defaultValue=""
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <Form.Control onChange={onChange} value={value} ref={ref}
+                    isInvalid={errors.stream}
+                    placeholder="Enter Your Stream"
+                  />)}
+                rules={{ required: true }}
+              />
+              <Form.Control.Feedback type="invalid">
+                Stream is required
               </Form.Control.Feedback>
             </Form.Group>
 

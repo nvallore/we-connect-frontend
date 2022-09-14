@@ -28,7 +28,6 @@ export function getSlotsData(reqUser) {
         //     name:'User 1',
         //     role: 'student'
         // };
-        console.log(response);
         return response?.data;
     });
 }
@@ -63,7 +62,13 @@ export function deleteUserSlot(slotId) {
 
 export function bookMentorSlot(payload) {
     return axios.post('http://127.0.0.1:3001/bookSlot', payload).then(response => {
-        console.log(response);
         return response;
+    });
+}
+
+export function getScheduleData(reqUser) {
+    console.log(reqUser);
+    return axios.post('http://127.0.0.1:3001/getSchedule', reqUser).then(response => {
+        return response?.data;
     });
 }

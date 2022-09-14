@@ -91,12 +91,14 @@ function CollapsibleNavbar() {
             {
               searchResult.map((value, key) => {
                 return (
-                  <><ListGroup.Item onClick={() => navigateToProfile(value.registrationId)}>
+                  <><ListGroup.Item onClick={() => navigateToProfile(value.regId)}>
                   <Card.Body>
-                    <Card.Title>{value.profileName}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">{value.registrationId}</Card.Subtitle>
+                    <Card.Title>{value.name}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">{value.regId}</Card.Subtitle>
                     <Card.Text>
-                      {value.skills}
+                      Stream: {value.stream}<br />
+                      Skills: {value.skills}<br />
+                      Expertise: {value.expertise}<br />
                     </Card.Text>
                   </Card.Body>
                 </ListGroup.Item></>
@@ -109,9 +111,8 @@ function CollapsibleNavbar() {
               </Col>
                 </Row>
               <Nav className="ms-auto">
-                <Nav.Link as={Link} to="/dashboard" className="maxWidth">My Schedule</Nav.Link>
+                <Nav.Link as={Link} to="/dashboard/schedule" className="maxWidth">My Schedule</Nav.Link>
                 <Nav.Link as={Link} to="/dashboard/profile" state={{ registrationId: user?.registrationId }} className="maxWidth">Profile</Nav.Link>
-                <Nav.Link as={Link} to="/schedule" className="maxWidth">My Schedule</Nav.Link>
                 {/* <Nav.Link as={Link} to="/login"></Nav.Link> */}
                 <Button variant="dark" onClick={logout}>Logout</Button>
               </Nav>

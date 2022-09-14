@@ -3,6 +3,8 @@ import { Container, Row, Col, } from 'react-bootstrap'
 // import TableContainer from './TableContainer';
 import PaginatedTable from './PaginatedTable';
 import AddMoMButton from './AddMoMButton';
+import { getScheduleData } from '../../services/schedule-service';
+import { useSelector } from 'react-redux';
 // import { useState } from "react";
 class AddMoM extends React.Component {
     render() {
@@ -18,19 +20,19 @@ const Schedule = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState({});
 
+  const userData = useSelector(state => state.user)
+
     useEffect(() => {
-        fetch("http://127.0.0.1:3001/getSchedule", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id: "mentor3", roleId: 'alumni' })
-        })
-            .then(res => res.json())
+        // { id: "mentor3", roleId: 'alumni' }
+        const request = {
+            id: userData?.registrationId,
+            roleId: userData?.role
+        };
+
+        getScheduleData(request)
             .then(
                 (result) => {
-                    result.schedule.map(s => {
+                    result?.schedule.map(s => {
                         let slotData = result.slotData
                         let noteData = result.notes
                         s.date = slotData[s.slotId].date

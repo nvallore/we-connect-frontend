@@ -56,10 +56,8 @@ function Slots() {
     };
 
     createSlots(reqPayload).then(res => {
-      if (res?.status === 200) {
         handleClose();
         dispatch(scheduleActions.getSlotsData(requestProfile?.id));
-      }
     });
   };
 
@@ -69,9 +67,7 @@ function Slots() {
     };
 
     deleteUserSlot(reqPayload).then(res => {
-      if (res?.status === 200) {
         dispatch(scheduleActions.getSlotsData(requestProfile?.id));
-      }
     });
   };
 
@@ -112,12 +108,8 @@ function Slots() {
       redirectUri: 'http://localhost:3000'
     };
     bookMentorSlot(reqPayload).then(res => {
-      if (res?.status === 200) {
         dispatch(scheduleActions.getSlotsData(requestProfile?.id));
         setShowSlotBookingConfirmation(false);
-      } else {
-        dispatch(alertActions.error('Failed to Schedule Meeting, Please try again!!'));
-      }
     });
   }
 
