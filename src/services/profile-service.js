@@ -57,7 +57,7 @@ export function searchProfile(searchQuery) {
             roleName: 'Admin'
         }
     ];
-    return axios.get(`http://127.0.0.1:8001/api/filterprofile?${searchQuery}`).then(response => {
+    return axios.get(`http://127.0.0.1:8001/api/filterprofile?search=${searchQuery}`).then(response => {
                 const searchData = response?.data;
                 return searchData;
             });
