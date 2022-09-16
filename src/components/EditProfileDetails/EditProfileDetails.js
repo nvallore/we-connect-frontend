@@ -106,7 +106,7 @@ function EditProfileDetails() {
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control onChange={onChange} value={value} ref={ref}
                     isInvalid={errors.name}
-                    disabled="true"
+                    disabled={true}
                     placeholder="Enter Your Name"
                   />)}
                 rules={{ required: true }}
