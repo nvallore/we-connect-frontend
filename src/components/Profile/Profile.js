@@ -78,7 +78,7 @@ function Profile() {
     const note = event.target.value;
     setThankyouNote(note);
   }
-  
+
 
   return (
     <div className={styles.Profile} data-testid="Profile">
@@ -108,19 +108,21 @@ function Profile() {
               </Card.Body>
             </Card>
 
-            <Card className="mb-4 mb-lg-0">
+            <Card className="mb-4 mb-lg-0" style={{height: "500px", overflow: "auto"}}>
               <Card.Title className="m-auto align-self-center">Thank You Notes</Card.Title>
               <hr />
               <Card.Body className="p-0">
                 {profile?.tyn?.map(note => (
                   <><Card.Title>{note?.fromName}</Card.Title>
+                    <Card.Subtitle>{new Date(note?.date)?.toDateString()}</Card.Subtitle>
                     <Card.Text>
                       {note?.note}
-                    </Card.Text><hr /></>
+                    </Card.Text>
+                    <hr /></>
                 ))}
               </Card.Body>
               {userRegistrationId !== profileRegistrationId && <Card.Body>
-                <Form.Control as="textarea" rows={3} placeholder="Express your gratitude here..." value={thankyouNote} name={thankyouNote} onChange={handleThankYouNoteChange}/>
+                <Form.Control as="textarea" rows={3} placeholder="Express your gratitude here..." value={thankyouNote} name={thankyouNote} onChange={handleThankYouNoteChange} />
                 <Button variant="secondary" onClick={createThankYouNote} outline className="mt-2">Post</Button>
               </Card.Body>
               }
@@ -183,6 +185,62 @@ function Profile() {
                   </Col>
                 </Row>
                 <hr />
+                {profile?.higheredu?.length > 0 ?
+                  <><Row>
+                    <Col sm="3">
+                      <Card.Text>Higher Education</Card.Text>
+                    </Col>
+                    <Col sm="9">
+                      <ListGroup>
+                        {profile?.higheredu?.map((value, key) => {
+                          return (
+                            <><ListGroup.Item>
+                              <Row>
+                                <Col>
+                                  Institute Name: <Card.Text>{value?.instituteName}</Card.Text>
+                                  Masters Subject: <Card.Text>{value?.mastersSubject}</Card.Text>
+                                </Col>
+                                <Col>
+                                  Year Of Completion: <Card.Text>{value?.yearOfCompletion}</Card.Text>
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                            </>
+                          );
+                        })}
+                      </ListGroup>
+                    </Col>
+                  </Row><hr /></> : <></>
+                }
+                {profile?.workex?.length > 0 ?
+                  <><Row>
+                    <Col sm="3">
+                      <Card.Text>Work Experince</Card.Text>
+                    </Col>
+                    <Col sm="9">
+                      <ListGroup>
+                        {profile?.workex?.map((value, key) => {
+                          return (
+                            <><ListGroup.Item>
+                              <Row>
+                                <Col>
+                                  Company: <Card.Text>{value?.company}</Card.Text>
+                                  Role: <Card.Text>{value?.role}</Card.Text>
+                                  Designation: <Card.Text>{value?.designation}</Card.Text>
+                                </Col>
+                                <Col>
+                                  Start Year: <Card.Text>{value?.startYear}</Card.Text>
+                                  End Year: <Card.Text>{value?.endYear?.length && value?.endYear}</Card.Text>
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                            </>
+                          );
+                        })}
+                      </ListGroup>
+                    </Col>
+                  </Row><hr /></> : <></>
+                }
               </Card.Body>
             </Card>
 

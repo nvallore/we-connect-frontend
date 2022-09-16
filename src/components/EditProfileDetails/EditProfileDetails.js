@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './EditProfileDetails.module.css';
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button, Card, Container, Row, Col, } from 'react-bootstrap'
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -17,33 +17,18 @@ function EditProfileDetails() {
 
   const user = useSelector(state => state.user)
 
-  //Index for work experince and higher education
-  const [workExpIndex, setWorkExpIndex] = React.useState([]);
-  const [workExpCounter, setWorkExpCounter] = React.useState(0);
+  // Field Array for workExperince and higher education
 
-
-  const [higherEduIndex, setHigherEduIndex] = React.useState([]);
-  const [higherEduCounter, setHigherEduCounter] = React.useState(0);
-
-  const addWorkExp = () => {
-    setWorkExpIndex(prevIndexes => [...prevIndexes, workExpCounter]);
-    setWorkExpCounter(prevCounter => prevCounter + 1);
-  };
-
-  const removeWorkExp = index => () => {
-    setWorkExpIndex(prevIndexes => [...prevIndexes.filter(item => item !== index)]);
-    setWorkExpCounter(prevCounter => prevCounter - 1);
-  };
-
-  const addHigherEdu = () => {
-    setHigherEduIndex(prevIndexes => [...prevIndexes, higherEduCounter]);
-    setHigherEduCounter(prevCounter => prevCounter + 1);
-  };
-
-  const removeHigherEdu = index => () => {
-    setHigherEduIndex(prevIndexes => [...prevIndexes.filter(item => item !== index)]);
-    setHigherEduCounter(prevCounter => prevCounter - 1);
-  };
+  const {
+    fields: workexFields,
+    append: workexAppend,
+    remove: workexRemove
+  } = useFieldArray({ control, name: "workex" });
+  const {
+    fields: highereduFields,
+    append: highereduAppend,
+    remove: highereduRemove
+  } = useFieldArray({ control, name: "higheredu" });
 
   //event dispatcher
   const dispatch = useDispatch();
@@ -65,14 +50,6 @@ function EditProfileDetails() {
       setValue('expertise', profileData?.expertise);
       setValue('higheredu', profileData?.higheredu);
       setValue('workex', profileData?.workex);
-      if(profileData?.higheredu) {
-        setHigherEduCounter(profileData?.higheredu?.length)
-        setHigherEduIndex(Array.from(Array(profileData?.higheredu?.length).keys()));
-      }
-      if(profileData?.workex) {
-        setWorkExpCounter(profileData?.workex?.length)
-        setWorkExpIndex(Array.from(Array(profileData?.workex?.length).keys()));
-      }
     }
   }, []);
 
@@ -96,6 +73,11 @@ function EditProfileDetails() {
 
   // Submiting data to login
   const submitUserDetails = (data) => {
+    data = {
+      ...data,
+      higheredu: data?.higheredu?.map(({ regId, ...item }) => item),
+      workex: data?.workex?.map(({ regId, ...item }) => item)
+    };
     const request = {
       ...data,
       regId: user?.registrationId,
@@ -170,10 +152,10 @@ function EditProfileDetails() {
                   defaultValue=""
                   render={({ field: { onChange, onBlur, value, ref } }) => (
                     <DatePicker
-                    onChange={(date) => {
-                      const d = new Date(date).getFullYear();
-                      onChange(d);
-                    }}
+                      onChange={(date) => {
+                        const d = new Date(date).getFullYear();
+                        onChange(d);
+                      }}
                       onBlur={onBlur}
                       selected={new Date()}
                       showYearPicker
@@ -295,10 +277,10 @@ function EditProfileDetails() {
                       defaultValue=""
                       render={({ field: { onChange, onBlur, value, ref } }) => (
                         <DatePicker
-                        onChange={(date) => {
-                          const d = new Date(date).getFullYear();
-                          onChange(d);
-                        }}
+                          onChange={(date) => {
+                            const d = new Date(date).getFullYear();
+                            onChange(d);
+                          }}
                           onBlur={onBlur}
                           selected={new Date()}
                           showYearPicker
@@ -316,21 +298,13 @@ function EditProfileDetails() {
                 <Card>
                   <Card.Title>Work Experince</Card.Title>
                   <Card.Body>
-                    <Button variant="dark" outline className="mt-3 mb-3" onClick={addWorkExp}>
+                    <Button variant="dark" outline className="mt-3 mb-3" onClick={() => { workexAppend({ company: "", designation: "", role: "", startYear: "", endYear: ""}); }}>
                       Add Work Experince
                     </Button>
-                    {workExpIndex.map(index => {
+                    {workexFields?.map((item, index) => {
                       const fieldName = `workex[${index}]`;
                       return (
                         <fieldset name={fieldName} key={fieldName}>
-                          {/* <label>
-                        First Name {index}:
-                        <input
-                          type="text"
-                          name={`${fieldName}.firstName`}
-                          ref={register}
-                        />
-                      </label> */}
 
                           <Form.Group className="mb-3">
                             <Form.Label>Company Name<span className={styles.requiredField}> *</span></Form.Label>
@@ -380,10 +354,10 @@ function EditProfileDetails() {
                               defaultValue=""
                               render={({ field: { onChange, onBlur, value, ref } }) => (
                                 <DatePicker
-                                onChange={(date) => {
-                                  const d = new Date(date).getFullYear();
-                                  onChange(d);
-                                }}
+                                  onChange={(date) => {
+                                    const d = new Date(date).getFullYear();
+                                    onChange(d);
+                                  }}
                                   onBlur={onBlur}
                                   selected={new Date(`1/1/${value}`)}
                                   showYearPicker
@@ -403,10 +377,10 @@ function EditProfileDetails() {
                               defaultValue=""
                               render={({ field: { onChange, onBlur, value, ref } }) => (
                                 <DatePicker
-                                onChange={(date) => {
-                                  const d = new Date(date).getFullYear();
-                                  onChange(d);
-                                }}
+                                  onChange={(date) => {
+                                    const d = new Date(date).getFullYear();
+                                    onChange(d);
+                                  }}
                                   onBlur={onBlur}
                                   selected={new Date(`1/1/${value}`)}
                                   showYearPicker
@@ -417,10 +391,11 @@ function EditProfileDetails() {
                             />
                           </Form.Group>
 
-
-                          <Button variant="secondary" outline className="ms-1" onClick={removeWorkExp(index)} disabled={(workExpIndex.length - 1) !== index}>
+                          
+                          <Button variant="secondary" outline className="ms-1" onClick={() => {workexRemove(index)}} disabled={(workexFields.length - 1) !== index}>
                             Remove
                           </Button>
+                          <hr />
                         </fieldset>
                       );
                     })}
@@ -430,10 +405,12 @@ function EditProfileDetails() {
                 <Card className='mt-3'>
                   <Card.Title>Higher Education</Card.Title>
                   <Card.Body>
-                    <Button variant="dark" outline className="mt-3 mb-3" onClick={addHigherEdu}>
+                    <Button variant="dark" outline className="mt-3 mb-3" onClick={() => {
+                      highereduAppend({ instituteName: "", mastersSubject: "", yearOfCompletion: ""});
+                    }}>
                       Add Higher Education
                     </Button>
-                    {higherEduIndex.map(index => {
+                    {highereduFields?.map((item, index) => {
                       const fieldName = `higheredu[${index}]`;
                       return (
                         <fieldset name={fieldName} key={fieldName}>
@@ -486,10 +463,10 @@ function EditProfileDetails() {
                             />
                           </Form.Group>
 
-
-                          <Button variant="secondary" outline className="ms-1" onClick={removeHigherEdu(index)} disabled={(higherEduIndex.length - 1) !== index}>
+                          <Button variant="secondary" outline className="ms-1" onClick={() => { highereduRemove(index) }} disabled={(highereduFields.length - 1) !== index}>
                             Remove
-                          </Button>
+                          </Button>     
+                          <hr />                     
                         </fieldset>
                       );
                     })}
@@ -497,8 +474,6 @@ function EditProfileDetails() {
                 </Card>
               </>
             }
-
-            {/* workex */}
 
             <Button type="submit"
               className="btn btn-primary mt-3">
