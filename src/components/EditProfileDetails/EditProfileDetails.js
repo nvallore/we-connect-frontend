@@ -123,12 +123,13 @@ function EditProfileDetails() {
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control onChange={onChange} value={value} ref={ref}
                     isInvalid={errors.mobile}
+                    type="number"
                     placeholder="Enter Your Mobile No."
                   />)}
-                rules={{ required: true }}
+                rules={{ required: true, minLength: 10, maxLength: 10 }}
               />
               <Form.Control.Feedback type="invalid">
-                Mobile No. is required
+                Please provide valid Mobile No
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -138,13 +139,17 @@ function EditProfileDetails() {
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control onChange={onChange} value={value} ref={ref}
+                    type="email"
                     isInvalid={errors.email}
                     placeholder="Enter Your Email Id"
                   />)}
-                rules={{ required: true }}
+                rules={{ required: true, pattern: {
+                  value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                  message: 'Enter Valid Email'
+                } }}
               />
               <Form.Control.Feedback type="invalid">
-                Email ID is required
+              {errors.email && <p>{errors.email.message}</p>}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -181,6 +186,7 @@ function EditProfileDetails() {
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control onChange={onChange} value={value} ref={ref}
                     isInvalid={errors.stream}
+                    type="text"
                     placeholder="Enter Your Stream"
                   />)}
                 rules={{ required: true }}
@@ -214,12 +220,15 @@ function EditProfileDetails() {
                     isInvalid={errors.skills}
                     placeholder="Enter Your Skills"
                   />)}
-                rules={{ required: true }}
-              />
+                rules={{ required: "Skills are required", pattern: {
+                  value: /^([a-z0-9A-Z\s]+,)*([a-z0-9A-Z\s]+){1}$/,
+                  message: 'Enter Valid Skills'
+                } }}
+              /> 
               <Form.Text className="text-muted">Enter comma seperated list. eg. React, HTML, CSS</Form.Text>
 
               <Form.Control.Feedback type="invalid">
-                Skills are required
+              {errors.skills && <p>{errors.skills.message}</p>}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -232,12 +241,15 @@ function EditProfileDetails() {
                     isInvalid={errors.interests}
                     placeholder="Enter Your Interests"
                   />)}
-                rules={{ required: true }}
+                rules={{ required: "Interests are required", pattern: {
+                  value: /^([a-z0-9A-Z\s]+,)*([a-z0-9A-Z\s]+){1}$/,
+                  message: 'Enter Valid Interests'
+                } }}
               />
               <Form.Text className="text-muted">Enter comma seperated list. eg. React, HTML, CSS</Form.Text>
 
               <Form.Control.Feedback type="invalid">
-                Interests are required
+              {errors.interests && <p>{errors.interests.message}</p>}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -250,8 +262,16 @@ function EditProfileDetails() {
                     isInvalid={errors.expertise}
                     placeholder="Enter Your Expertise"
                   />)}
+                  rules={{ pattern: {
+                    value: /^([a-z0-9A-Z\s]+,)*([a-z0-9A-Z\s]+){1}$/,
+                    message: 'Enter Valid Expertise'
+                  } }}
               />
               <Form.Text className="text-muted">Enter comma seperated list. eg. React, HTML, CSS</Form.Text>
+
+              <Form.Control.Feedback type="invalid">
+              {errors.expertise && <p>{errors.expertise.message}</p>}
+              </Form.Control.Feedback>
 
             </Form.Group>
 

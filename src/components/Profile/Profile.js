@@ -108,10 +108,10 @@ function Profile() {
               </Card.Body>
             </Card>
 
-            <Card className="mb-4 mb-lg-0" style={{height: "500px", overflow: "auto"}}>
+            <Card className="mb-4 mb-lg-0" style={{height: "400px", overflow: "auto"}}>
               <Card.Title className="m-auto align-self-center">Thank You Notes</Card.Title>
               <hr />
-              <Card.Body className="p-0">
+              <Card.Body className="p-0 mx-2">
                 {profile?.tyn?.map(note => (
                   <><Card.Title>{note?.fromName}</Card.Title>
                     <Card.Subtitle>{new Date(note?.date)?.toDateString()}</Card.Subtitle>
@@ -169,15 +169,6 @@ function Profile() {
                 <hr />
                 <Row>
                   <Col sm="3">
-                    <Card.Text>Class of</Card.Text>
-                  </Col>
-                  <Col sm="9">
-                    <Card.Text className="text-muted">{profile?.yearOfJoining}</Card.Text>
-                  </Col>
-                </Row>
-                <hr />
-                <Row>
-                  <Col sm="3">
                     <Card.Text>LinkedIn Profile</Card.Text>
                   </Col>
                   <Col sm="9">
@@ -190,7 +181,7 @@ function Profile() {
                     <Col sm="3">
                       <Card.Text>Higher Education</Card.Text>
                     </Col>
-                    <Col sm="9">
+                    <Col sm="9" style={{ height: "200px",overflow: "auto"}}>
                       <ListGroup>
                         {profile?.higheredu?.map((value, key) => {
                           return (
@@ -217,7 +208,7 @@ function Profile() {
                     <Col sm="3">
                       <Card.Text>Work Experince</Card.Text>
                     </Col>
-                    <Col sm="9">
+                    <Col sm="9" style={{ height: "200px",overflow: "auto"}}>
                       <ListGroup>
                         {profile?.workex?.map((value, key) => {
                           return (
