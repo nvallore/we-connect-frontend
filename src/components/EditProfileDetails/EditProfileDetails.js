@@ -37,9 +37,11 @@ function EditProfileDetails() {
   const isOnboardingFlow = location?.state?.isOnboardingFlow || false;
 
   useEffect(() => {
+    if(user?.name) {
+      setValue('name', user?.name);
+    }
     if (profile.data && !isOnboardingFlow) {
       const profileData = profile?.data;
-      setValue('name', profileData?.name);
       setValue('stream', profileData?.stream);
       setValue('mobile', profileData?.mobile);
       setValue('email', profileData?.email);
@@ -104,6 +106,7 @@ function EditProfileDetails() {
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control onChange={onChange} value={value} ref={ref}
                     isInvalid={errors.name}
+                    disabled="true"
                     placeholder="Enter Your Name"
                   />)}
                 rules={{ required: true }}
