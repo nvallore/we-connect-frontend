@@ -157,7 +157,7 @@ function EditProfileDetails() {
                         onChange(d);
                       }}
                       onBlur={onBlur}
-                      selected={new Date()}
+                      selected={new Date(`1/1/${value}`)}
                       showYearPicker
                       dateFormat="yyyy"
                       maxDate={new Date()}
@@ -298,7 +298,7 @@ function EditProfileDetails() {
                 <Card>
                   <Card.Title>Work Experince</Card.Title>
                   <Card.Body>
-                    <Button variant="dark" outline className="mt-3 mb-3" onClick={() => { workexAppend({ company: "", designation: "", role: "", startYear: "", endYear: ""}); }}>
+                    <Button variant="dark" outline className="mt-3 mb-3" onClick={() => { workexAppend({ company: "", designation: "", role: "", startYear: "", endYear: "" }); }}>
                       Add Work Experince
                     </Button>
                     {workexFields?.map((item, index) => {
@@ -391,8 +391,8 @@ function EditProfileDetails() {
                             />
                           </Form.Group>
 
-                          
-                          <Button variant="secondary" outline className="ms-1" onClick={() => {workexRemove(index)}} disabled={(workexFields.length - 1) !== index}>
+
+                          <Button variant="secondary" outline className="ms-1" onClick={() => { workexRemove(index) }} disabled={(workexFields.length - 1) !== index}>
                             Remove
                           </Button>
                           <hr />
@@ -406,7 +406,7 @@ function EditProfileDetails() {
                   <Card.Title>Higher Education</Card.Title>
                   <Card.Body>
                     <Button variant="dark" outline className="mt-3 mb-3" onClick={() => {
-                      highereduAppend({ instituteName: "", mastersSubject: "", yearOfCompletion: ""});
+                      highereduAppend({ instituteName: "", mastersSubject: "", yearOfCompletion: "" });
                     }}>
                       Add Higher Education
                     </Button>
@@ -465,8 +465,8 @@ function EditProfileDetails() {
 
                           <Button variant="secondary" outline className="ms-1" onClick={() => { highereduRemove(index) }} disabled={(highereduFields.length - 1) !== index}>
                             Remove
-                          </Button>     
-                          <hr />                     
+                          </Button>
+                          <hr />
                         </fieldset>
                       );
                     })}
