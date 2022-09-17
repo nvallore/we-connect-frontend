@@ -108,13 +108,14 @@ function Profile() {
               </Card.Body>
             </Card>
 
+            {profile?.tyn?.length !== 0?
             <Card className="mb-4 mb-lg-0" style={{height: "400px", overflow: "auto"}}>
               <Card.Title className="m-auto align-self-center">Thank You Notes</Card.Title>
               <hr />
               <Card.Body className="p-0 mx-2">
                 {profile?.tyn?.map(note => (
                   <><Card.Title>{note?.fromName}</Card.Title>
-                    <Card.Subtitle>{new Date(note?.date)?.toDateString()}</Card.Subtitle>
+                    <Card.Text>{new Date(note?.date)?.toDateString()}</Card.Text>
                     <Card.Text>
                       {note?.note}
                     </Card.Text>
@@ -127,6 +128,9 @@ function Profile() {
               </Card.Body>
               }
             </Card>
+            : 
+            <></>
+            }
           </Col>
           <Col lg="8">
             <Card className="mb-4">

@@ -39,12 +39,12 @@ function EditProfileDetails() {
   useEffect(() => {
     if(user?.name) {
       setValue('name', user?.name);
+      setValue('email', user?.email);
     }
     if (profile.data && !isOnboardingFlow) {
       const profileData = profile?.data;
       setValue('stream', profileData?.stream);
       setValue('mobile', profileData?.mobile);
-      setValue('email', profileData?.email);
       setValue('skills', profileData?.skills);
       setValue('interests', profileData?.interests);
       setValue('linkedInProfile', profileData?.linkedInProfile);
@@ -166,6 +166,7 @@ function EditProfileDetails() {
                       }}
                       onBlur={onBlur}
                       selected={new Date(`1/1/${value}`)}
+                      isInvalid={errors.yearOfJoining}
                       showYearPicker
                       dateFormat="yyyy"
                       maxDate={new Date()}
