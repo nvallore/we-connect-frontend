@@ -115,7 +115,7 @@ function Profile() {
               <Card.Body className="p-0 mx-2">
                 {profile?.tyn?.map(note => (
                   <><Card.Title>{note?.fromName}</Card.Title>
-                    <Card.Text>{new Date(note?.date)?.toDateString()}</Card.Text>
+                    <p style={{ "font-size": "10px"}}>{new Date(note?.date)?.toDateString()}</p>
                     <Card.Text>
                       {note?.note}
                     </Card.Text>
