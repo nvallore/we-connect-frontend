@@ -12,7 +12,7 @@ const getSlotsData = (profileRegistrationId) => {
                 },
                 error => {
                     dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(alertActions.error(error));
                 }
             );
     };

@@ -23,14 +23,11 @@ axios.interceptors.request.use(
     if (token) {
       config.headers['Authorization'] = 'Token ' + token
     }
-    console.log('In interceptor')
-    // dispatch(allActions.loadingActions.showLoader)
     document.getElementById('api-loader').classList.remove('hide-loader');
     document.getElementById('api-loader').classList.add('show-loader');
     return config;
   },
   error => {
-    // dispatch(allActions.loadingActions.hideLoader)
     Promise.reject(error)
   }
 )
@@ -38,7 +35,6 @@ axios.interceptors.request.use(
 // API Response interceptor
 axios.interceptors.response.use(
   response => {
-    // dispatch(allActions.loadingActions.hideLoader)
 
     document.getElementById('api-loader').classList.add('hide-loader');
     document.getElementById('api-loader').classList.remove('show-loader');
@@ -47,15 +43,6 @@ axios.interceptors.response.use(
   function (error) {
     document.getElementById('api-loader').classList.add('hide-loader');
     document.getElementById('api-loader').classList.remove('show-loader');
-    const originalRequest = error.config
-    // dispatch(allActions.loadingActions.hideLoader)
-    // if (
-    //   error.response.status === 401 &&
-    //   originalRequest.url === 'http://127.0.0.1:3000/v1/auth/token'
-    // ) {
-    //   return Promise.reject(error)
-    // }
-
     return Promise.reject(error)
   }
 )

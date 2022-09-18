@@ -108,7 +108,7 @@ function Profile() {
               </Card.Body>
             </Card>
 
-            {profile?.tyn?.length !== 0?
+            {((profile?.tyn?.length !== 0) || (userRegistrationId !== profileRegistrationId)) ?
             <Card className="mb-4 mb-lg-0" style={{height: "400px", overflow: "auto"}}>
               <Card.Title className="m-auto align-self-center">Thank You Notes</Card.Title>
               <hr />

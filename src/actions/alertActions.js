@@ -10,7 +10,8 @@ function success(message) {
     return { type: alertConstants.SUCCESS, message };
 }
 
-function error(message) {
+function error(error) {
+    const message = error?.response?.data?.error || 'Server Error, Please contant admin.';
     return { type: alertConstants.ERROR, message };
 }
 

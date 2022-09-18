@@ -112,9 +112,15 @@ const Schedule = () => {
 
             <Row><center><h1>My Schedule</h1></center></Row>
             <Row>
+                { items.length > 0?
                 <Col>
                     <PaginatedTable columns={columnSchedule} data={items} />
                 </Col>
+                :
+                <Col>
+                <div>No Calls Scheduled Yet</div>
+                </Col>
+                }
             </Row>
         </Container>
     )

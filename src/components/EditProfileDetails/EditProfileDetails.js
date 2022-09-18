@@ -306,7 +306,7 @@ function EditProfileDetails() {
                             onChange(d);
                           }}
                           onBlur={onBlur}
-                          selected={new Date()}
+                          selected={new Date(`1/1/${value}`)}
                           showYearPicker
                           dateFormat="yyyy"
                           maxDate={new Date()}

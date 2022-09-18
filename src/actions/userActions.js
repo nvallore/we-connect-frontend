@@ -14,7 +14,7 @@ const login = (userDetails) => {
                 },
                 error => {
                     dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(alertActions.error(error));
                 }
             );
     };
@@ -31,7 +31,7 @@ const logout = () => {
             dispatch(success());
         },
         error => {
-            dispatch(alertActions.error(error.toString()));
+            dispatch(alertActions.error(error));
         }
     );
     };
@@ -49,7 +49,7 @@ const resetPassword = (userDetails) => {
                 },
                 error => {
                     dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(alertActions.error(error));
                 }
             );
     };

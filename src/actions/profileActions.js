@@ -16,7 +16,7 @@ const getProfileData = (userRegistrationId, isFromSearch) => {
                 },
                 error => {
                     dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(alertActions.error(error));
                 }
             );
     };
@@ -36,7 +36,7 @@ const editProfileData = (userDetails) => {
                 },
                 error => {
                     dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(alertActions.error(error));
                 }
             );
     };
@@ -55,7 +55,7 @@ const onboardProfileData = (userDetails) => {
                 },
                 error => {
                     dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(alertActions.error(error));
                 }
             );
     };
