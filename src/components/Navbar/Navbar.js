@@ -78,6 +78,7 @@ function CollapsibleNavbar() {
               <Form className="d-flex">
                 <Form.Control
                   type="search"
+                  id='searchText'
                   placeholder="Search"
                   className="me-2"
                   aria-label="Search"
@@ -87,7 +88,7 @@ function CollapsibleNavbar() {
         {
         searchResult.length !== 0 &&
         (
-          <ListGroup className="searchResult me-2 text-align-left">
+          <ListGroup className="searchResult me-2 text-align-left" id='searchResult'>
             {
               searchResult.map((value, key) => {
                 return (
@@ -112,9 +113,9 @@ function CollapsibleNavbar() {
                 </Row>
               <Nav className="ms-auto">
                 <Nav.Link as={Link} to="/dashboard/schedule" className="maxWidth">My Schedule</Nav.Link>
-                <Nav.Link as={Link} to="/dashboard/profile" state={{ registrationId: user?.registrationId }} className="maxWidth">Profile</Nav.Link>
+                <Nav.Link as={Link} id="dashboardProfile" to="/dashboard/profile" state={{ registrationId: user?.registrationId }} className="maxWidth">Profile</Nav.Link>
                 {/* <Nav.Link as={Link} to="/login"></Nav.Link> */}
-                <Button variant="dark" onClick={logout}>Logout</Button>
+                <Button variant="dark" id='userLogout' onClick={logout}>Logout</Button>
               </Nav>
             </Navbar.Collapse>
             {/* </Col> */}

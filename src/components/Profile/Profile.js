@@ -97,12 +97,12 @@ function Profile() {
                 <p className="text-muted mb-1">{profile?.name}</p>
                 <div className="d-flex justify-content-center mb-2">
                   {userRegistrationId === profileRegistrationId ? profile?.roleName?.toLowerCase() === 'alumni' ?
-                    <><Button variant="success" onClick={navigateToEditProfile} outline className="ms-1">Edit Profile</Button>
-                      <Button variant="success" onClick={scheduleSlots} outline className="ms-1">Schedule Slots</Button></>
+                    <><Button variant="success" onClick={navigateToEditProfile} outline className="ms-1" id='profileEdit'>Edit Profile</Button>
+                      <Button variant="success" onClick={scheduleSlots} outline className="ms-1" id='profileScheduleSlot'>Schedule Slots</Button></>
                     :
-                    <Button variant="success" onClick={navigateToEditProfile} outline className="ms-1">Edit Profile</Button>
+                    <Button variant="success" onClick={navigateToEditProfile} outline className="ms-1" id='profileEdit'>Edit Profile</Button>
                     : profile?.roleName?.toLowerCase() === 'alumni' ?
-                      <Button variant="success" onClick={navigateToScheduleCall} outline className="ms-1">Schedule Call</Button> : <></>
+                      <Button variant="success" onClick={navigateToScheduleCall} outline className="ms-1" id='profileScheduleCall'>Schedule Call</Button> : <></>
                   }
                 </div>
               </Card.Body>

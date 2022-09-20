@@ -138,6 +138,7 @@ function Slots() {
             <Card>
               <Card.Body>
                 <DatePicker
+                  id='slotDatePicker'
                   className={styles.datePickerTime}
                   selected={selectedDate}
                   onSelect={getExcludedTimes}
@@ -157,7 +158,7 @@ function Slots() {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="dark" onClick={submitSlot}>
+            <Button variant="dark" onClick={submitSlot} id='slotSubmit'>
               Submit Slot
             </Button>
           </Modal.Footer>
@@ -192,12 +193,12 @@ function Slots() {
 
       <Card mt-10>
         <Card.Title>{
-          !isScheduleCall ? <>Your Slots <Button variant='dark' className='pull-right' onClick={handleShow}>Add Slot</Button></>
+          !isScheduleCall ? <>Your Slots <Button variant='dark' className='pull-right' id='addSlot' onClick={handleShow}>Add Slot</Button></>
             :
             <>Book Your Slots for mentorship with {requestProfile?.name}</>
         }</Card.Title>
         <Card.Body>
-          <ListGroup>
+          <ListGroup id='selectSlots'>
             {
               userSlotsData.map((value, key) => {
                 return (

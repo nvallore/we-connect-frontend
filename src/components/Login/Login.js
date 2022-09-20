@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useForm, Controller } from 'react-hook-form';
 import { Form, Button, Card, Container, Row, Col, } from 'react-bootstrap'
-import styles from'./Login.module.css'
+import styles from './Login.module.css'
 import * as authService from '../../services/auth-service';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,9 +30,9 @@ function Login() {
   // navigate
   useEffect(() => {
     // dispatch(userActions.logout());
-    if(user.isLoginSuccess && user.isFirstTimeLogin) {
+    if (user.isLoginSuccess && user.isFirstTimeLogin) {
       navigate('/reset-password')
-    } else if(user.isLoginSuccess && !user.isFirstTimeLogin) {
+    } else if (user.isLoginSuccess && !user.isFirstTimeLogin) {
       navigate('/dashboard')
     }
   }, [user]);
@@ -46,50 +46,53 @@ function Login() {
 
   return (
     <div className={styles.mainContainer}>
-    <Image fluid src={logo_image} alt='logo_image' className={styles.logoImage}></Image>
+      <Image fluid src={logo_image} alt='logo_image' className={styles.logoImage}></Image>
 
-    <Container fluid> <Row className="justify-content-md-center"> <Col xs lg="6">
-      <Card><Card.Header>Sign In</Card.Header><Card.Body>
-        <Form onSubmit={handleSubmit(submitLoginDetails)} onReset={reset} >
-          <Form.Group className="mb-3">
-            <Form.Label>Registration ID</Form.Label>
-            <Controller control={control} name="registrationId"
-              defaultValue=""
-              render={({ field: { onChange, onBlur, value, ref } }) => (
-                <Form.Control onChange={onChange} value={value} ref={ref}
-                  isInvalid={errors.registrationId}
-                  placeholder="Enter Registration Id"
-                />)}
-              rules={{ required: true }}
-            />
-            <Form.Text className="text-muted">Registration ID starts with your year of joining</Form.Text>
-            <Form.Control.Feedback type="invalid">
-              Registration ID is required
-            </Form.Control.Feedback>
-          </Form.Group>
+      <Container fluid> <Row className="justify-content-md-center"> <Col xs lg="6">
+        <Card><Card.Header>Sign In</Card.Header><Card.Body>
+          <Form onSubmit={handleSubmit(submitLoginDetails)} onReset={reset} >
+            <Form.Group className="mb-3">
+              <Form.Label>Registration ID</Form.Label>
+              <Controller control={control} name="registrationId"
+                defaultValue=""
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <Form.Control onChange={onChange} value={value} ref={ref}
+                    isInvalid={errors.registrationId}
+                    id="userLoginName"
+                    placeholder="Enter Registration Id"
+                  />)}
+                rules={{ required: true }}
+              />
+              <Form.Text className="text-muted">Registration ID starts with your year of joining</Form.Text>
+              <Form.Control.Feedback type="invalid">
+                Registration ID is required
+              </Form.Control.Feedback>
+            </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Password</Form.Label>
-            <Controller control={control} name="password"
-              defaultValue=""
-              render={({ field: { onChange, onBlur, value, ref } }) => (
-                <Form.Control onChange={onChange} value={value} ref={ref}
-                  type="password"
-                  isInvalid={errors.password}
-                  placeholder="Enter Password"
-                />)}
-              rules={{ required: true }}
-            />
-            <Form.Control.Feedback type="invalid">
-              Password is Required
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Button type="submit"
-            className="btn btn-primary">
-            Login
-          </Button>
-        </Form></Card.Body></Card>
-    </Col> </Row> </Container>
+            <Form.Group className="mb-3">
+              <Form.Label>Password</Form.Label>
+              <Controller control={control} name="password"
+                defaultValue=""
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <Form.Control onChange={onChange} value={value} ref={ref}
+                    type="password"
+                    isInvalid={errors.password}
+                    id="userLoginPassword"
+                    placeholder="Enter Password"
+                  />)}
+                rules={{ required: true }}
+              />
+              <Form.Control.Feedback type="invalid">
+                Password is Required
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Button type="submit"
+              id="userLoginSubmit"
+              className="btn btn-primary">
+              Login
+            </Button>
+          </Form></Card.Body></Card>
+      </Col> </Row> </Container>
     </div>
   );
 }
