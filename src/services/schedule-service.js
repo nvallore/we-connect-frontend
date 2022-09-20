@@ -51,7 +51,6 @@ export function bookMentorSlot(payload) {
 }
 
 export function getScheduleData(reqUser) {
-    console.log(reqUser);
     return axios.post('http://127.0.0.1:3001/getSchedule', reqUser).then(response => {
         return response?.data;
     });
