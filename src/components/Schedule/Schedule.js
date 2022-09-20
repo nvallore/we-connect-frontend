@@ -49,16 +49,29 @@ const Schedule = () => {
                 }
             )
     }, [])
+    var roleId = 'alumni',headerId,accessorId,headerName,accessorName
+    if(roleId === 'student'){
+        headerId = 'Alumni ID'
+        accessorId = 'mentorId'
+        headerName = 'Alumni Name'
+        accessorName = 'name'
+    }
+    else if (roleId === 'alumni'){
+        headerId = 'Student ID'
+        accessorId = 'menteeId'
+        headerName = 'Student Name'
+        accessorName = 'name'
+    }
 
     const columnSchedule = useMemo(
         () => [
             {
-                Header: "Mentor ID",
-                accessor: "mentorId"
+                Header: headerId,
+                accessor: accessorId
             },
             {
-                Header: "Mentor Name",
-                accessor: "name"
+                Header: headerName,
+                accessor: accessorName
             },
             {
                 Header: "Meet Link",
@@ -94,7 +107,8 @@ const Schedule = () => {
             }
         ],
         []
-    )
+    ) 
+
 
 
     if (!isLoaded) {
