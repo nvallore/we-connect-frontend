@@ -49,7 +49,7 @@ const Schedule = () => {
                 }
             )
     }, [])
-    var roleId = 'alumni',headerId,accessorId,headerName,accessorName
+    var roleId = userData?.role,headerId,accessorId,headerName,accessorName
     if(roleId === 'student'){
         headerId = 'Alumni ID'
         accessorId = 'mentorId'
@@ -60,7 +60,7 @@ const Schedule = () => {
         headerId = 'Student ID'
         accessorId = 'menteeId'
         headerName = 'Student Name'
-        accessorName = 'name'
+        accessorName = 'menteeName'
     }
 
     const columnSchedule = useMemo(
