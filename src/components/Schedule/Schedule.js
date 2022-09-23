@@ -27,12 +27,13 @@ const Schedule = () => {
         const request = {
             id: userData?.registrationId,
             roleId: userData?.role
+            // roleId: 'alumni'
         };
 
         getScheduleData(request)
             .then(
                 (result) => {
-                    result?.schedule.map(s => {
+                    result?.schedule?.map(s => {
                         let slotData = result.slotData
                         let noteData = result.notes
                         s.date = slotData[s.slotId].date
@@ -50,6 +51,7 @@ const Schedule = () => {
             )
     }, [])
     var roleId = userData?.role,headerId,accessorId,headerName,accessorName
+    // var roleId = 'student',headerId,accessorId,headerName,accessorName
     if(roleId === 'student'){
         headerId = 'Alumni ID'
         accessorId = 'mentorId'
