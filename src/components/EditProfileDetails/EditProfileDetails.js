@@ -37,7 +37,7 @@ function EditProfileDetails() {
   const isOnboardingFlow = location?.state?.isOnboardingFlow || false;
 
   useEffect(() => {
-    if(user?.name) {
+    if (user?.name) {
       setValue('name', user?.name);
       setValue('email', user?.email);
     }
@@ -143,13 +143,15 @@ function EditProfileDetails() {
                     isInvalid={errors.email}
                     placeholder="Enter Your Email Id"
                   />)}
-                rules={{ required: true, pattern: {
-                  value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-                  message: 'Enter Valid Email'
-                } }}
+                rules={{
+                  required: true, pattern: {
+                    value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                    message: 'Enter Valid Email'
+                  }
+                }}
               />
               <Form.Control.Feedback type="invalid">
-              {errors.email && <p>{errors.email.message}</p>}
+                {errors.email && <p>{errors.email.message}</p>}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -159,24 +161,28 @@ function EditProfileDetails() {
                 <Controller control={control} name="yearOfJoining"
                   defaultValue=""
                   render={({ field: { onChange, onBlur, value, ref } }) => (
-                    <DatePicker
-                      onChange={(date) => {
-                        const d = new Date(date).getFullYear();
-                        onChange(d);
-                      }}
-                      onBlur={onBlur}
-                      selected={new Date(`1/1/${value}`)}
-                      isInvalid={errors.yearOfJoining}
-                      showYearPicker
-                      dateFormat="yyyy"
-                      maxDate={new Date()}
-                    />
+                    <>
+                      <DatePicker
+                        onChange={(date) => {
+                          const d = new Date(date).getFullYear();
+                          onChange(d);
+                        }}
+                        onBlur={onBlur}
+                        selected={new Date(`1/1/${value}`)}
+                        isInvalid={errors.yearOfJoining}
+                        showYearPicker
+                        dateFormat="yyyy"
+                        maxDate={new Date()}
+                      />
+                      {value?.length === 0 && <p className='text-danger'>
+                        Please select a year
+                      </p>
+                      }
+                    </>
                   )}
                   rules={{ required: true }}
                 />
-                <Form.Control.Feedback type="invalid">
-                  This field is required
-                </Form.Control.Feedback>
+
               </Form.Group>
             }
 
@@ -221,15 +227,17 @@ function EditProfileDetails() {
                     isInvalid={errors.skills}
                     placeholder="Enter Your Skills"
                   />)}
-                rules={{ required: "Skills are required", pattern: {
-                  value: /^([a-z0-9A-Z\s]+,)*([a-z0-9A-Z\s]+){1}$/,
-                  message: 'Enter Valid Skills'
-                } }}
-              /> 
+                rules={{
+                  required: "Skills are required", pattern: {
+                    value: /^([a-z0-9A-Z\s]+,)*([a-z0-9A-Z\s]+){1}$/,
+                    message: 'Enter Valid Skills'
+                  }
+                }}
+              />
               <Form.Text className="text-muted">Enter comma seperated list. eg. React, HTML, CSS</Form.Text>
 
               <Form.Control.Feedback type="invalid">
-              {errors.skills && <p>{errors.skills.message}</p>}
+                {errors.skills && <p>{errors.skills.message}</p>}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -242,15 +250,17 @@ function EditProfileDetails() {
                     isInvalid={errors.interests}
                     placeholder="Enter Your Interests"
                   />)}
-                rules={{ required: "Interests are required", pattern: {
-                  value: /^([a-z0-9A-Z\s]+,)*([a-z0-9A-Z\s]+){1}$/,
-                  message: 'Enter Valid Interests'
-                } }}
+                rules={{
+                  required: "Interests are required", pattern: {
+                    value: /^([a-z0-9A-Z\s]+,)*([a-z0-9A-Z\s]+){1}$/,
+                    message: 'Enter Valid Interests'
+                  }
+                }}
               />
               <Form.Text className="text-muted">Enter comma seperated list. eg. React, HTML, CSS</Form.Text>
 
               <Form.Control.Feedback type="invalid">
-              {errors.interests && <p>{errors.interests.message}</p>}
+                {errors.interests && <p>{errors.interests.message}</p>}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -263,15 +273,17 @@ function EditProfileDetails() {
                     isInvalid={errors.expertise}
                     placeholder="Enter Your Expertise"
                   />)}
-                  rules={{ pattern: {
+                rules={{
+                  pattern: {
                     value: /^([a-z0-9A-Z\s]+,)*([a-z0-9A-Z\s]+){1}$/,
                     message: 'Enter Valid Expertise'
-                  } }}
+                  }
+                }}
               />
               <Form.Text className="text-muted">Enter comma seperated list. eg. React, HTML, CSS</Form.Text>
 
               <Form.Control.Feedback type="invalid">
-              {errors.expertise && <p>{errors.expertise.message}</p>}
+                {errors.expertise && <p>{errors.expertise.message}</p>}
               </Form.Control.Feedback>
 
             </Form.Group>
@@ -300,22 +312,25 @@ function EditProfileDetails() {
                     <Controller control={control} name="yearOfPassout"
                       defaultValue=""
                       render={({ field: { onChange, onBlur, value, ref } }) => (
-                        <DatePicker
-                          onChange={(date) => {
-                            const d = new Date(date).getFullYear();
-                            onChange(d);
-                          }}
-                          onBlur={onBlur}
-                          selected={new Date(`1/1/${value}`)}
-                          showYearPicker
-                          dateFormat="yyyy"
-                          maxDate={new Date()}
-                        />
+                        <>
+                          <DatePicker
+                            onChange={(date) => {
+                              const d = new Date(date).getFullYear();
+                              onChange(d);
+                            }}
+                            onBlur={onBlur}
+                            selected={new Date(`1/1/${value}`)}
+                            showYearPicker
+                            dateFormat="yyyy"
+                            maxDate={new Date()}
+                          />
+                          {value?.length === 0 && <p className='text-danger'>
+                            Please select a year
+                          </p>
+                          }
+                        </>
                       )}
                       rules={{ required: true }} />
-                    <Form.Control.Feedback type="invalid">
-                      Years of Passout is required
-                    </Form.Control.Feedback>
                   </Form.Group>
                 }
 
@@ -377,22 +392,25 @@ function EditProfileDetails() {
                             <Controller control={control} name={`${fieldName}.startYear`}
                               defaultValue=""
                               render={({ field: { onChange, onBlur, value, ref } }) => (
-                                <DatePicker
-                                  onChange={(date) => {
-                                    const d = new Date(date).getFullYear();
-                                    onChange(d);
-                                  }}
-                                  onBlur={onBlur}
-                                  selected={new Date(`1/1/${value}`)}
-                                  showYearPicker
-                                  dateFormat="yyyy"
-                                  maxDate={new Date()}
-                                />
+                                <>
+                                  <DatePicker
+                                    onChange={(date) => {
+                                      const d = new Date(date).getFullYear();
+                                      onChange(d);
+                                    }}
+                                    onBlur={onBlur}
+                                    selected={new Date(`1/1/${value}`)}
+                                    showYearPicker
+                                    dateFormat="yyyy"
+                                    maxDate={new Date()}
+                                  />
+                                  {value?.length === 0 && <p className='text-danger'>
+                                    Please select a year
+                                  </p>
+                                  }
+                                </>
                               )}
                               rules={{ required: true }} />
-                            <Form.Control.Feedback type="invalid">
-                              Start Year is required
-                            </Form.Control.Feedback>
                           </Form.Group>
 
                           <Form.Group className="mb-3">
