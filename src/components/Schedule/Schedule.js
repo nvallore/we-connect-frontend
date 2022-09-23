@@ -27,12 +27,13 @@ const Schedule = () => {
         const request = {
             id: userData?.registrationId,
             roleId: userData?.role
+            // roleId: 'alumni'
         };
 
         getScheduleData(request)
             .then(
                 (result) => {
-                    result?.schedule.map(s => {
+                    result?.schedule?.map(s => {
                         let slotData = result.slotData
                         let noteData = result.notes
                         s.date = slotData[s.slotId].date
@@ -49,16 +50,30 @@ const Schedule = () => {
                 }
             )
     }, [])
+    var roleId = userData?.role,headerId,accessorId,headerName,accessorName
+    // var roleId = 'student',headerId,accessorId,headerName,accessorName
+    if(roleId === 'student'){
+        headerId = 'Alumni ID'
+        accessorId = 'mentorId'
+        headerName = 'Alumni Name'
+        accessorName = 'name'
+    }
+    else if (roleId === 'alumni'){
+        headerId = 'Student ID'
+        accessorId = 'menteeId'
+        headerName = 'Student Name'
+        accessorName = 'menteeName'
+    }
 
     const columnSchedule = useMemo(
         () => [
             {
-                Header: "Mentor ID",
-                accessor: "mentorId"
+                Header: headerId,
+                accessor: accessorId
             },
             {
-                Header: "Mentor Name",
-                accessor: "name"
+                Header: headerName,
+                accessor: accessorName
             },
             {
                 Header: "Meet Link",
@@ -94,7 +109,8 @@ const Schedule = () => {
             }
         ],
         []
-    )
+    ) 
+
 
 
     if (!isLoaded) {
