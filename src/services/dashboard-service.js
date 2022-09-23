@@ -2,6 +2,10 @@ import axios from "axios";
 
 export function getDashboardDetails(userRole) {
     console.log(userRole);
+    let postType = 'dashboardexternalpost';
+    if(userRole !== 'alumni') {
+        postType = 'dashboardinternalpost';
+    }
     const mockResponse = [
         {
             title: 'Python Workshop',
@@ -28,8 +32,8 @@ export function getDashboardDetails(userRole) {
             image: 'https://m.media-amazon.com/images/M/MV5BMjEwNjE5MTg1N15BMl5BanBnXkFtZTgwODM1NDgwNjE@._V1_.jpg'
         }
     ];
-    return axios.get(`http://127.0.0.1:8000/api/hello`).then(response => {
+    return axios.get(`http://127.0.0.1:8002/api/${postType}`).then(response => {
                 const data = response?.data;
-                return mockResponse;
+                return data;
             });
 }

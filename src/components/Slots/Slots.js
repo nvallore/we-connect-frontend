@@ -105,7 +105,8 @@ function Slots() {
       menteeId: user?.registrationId,
       mentorId: requestProfile?.id,
       attendees: [requestProfile?.email, user?.email],
-      redirectUri: 'http://localhost:3000'
+      redirectUri: 'http://localhost:3000',
+      menteeName: user?.name,
     };
     bookMentorSlot(reqPayload).then(res => {
         dispatch(scheduleActions.getSlotsData(requestProfile?.id));

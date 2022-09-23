@@ -97,7 +97,11 @@ function Dashboard() {
                   userSchedule?.map((value) => {
                     return (
                       <><ListGroup.Item>
-                        <b>Mentor Name:</b> <Card.Text>{value?.name}</Card.Text>
+                        { userRole.toLowerCase() === 'alumni'?
+                        <><b>Student Name:</b><Card.Text>{value?.menteeName}</Card.Text></>
+                        :
+                        <><b>Mentor Name:</b><Card.Text>{value?.name}</Card.Text></>
+                        }
                         <b>Meet Link:</b><br /><Card.Link style={{ "cursor": "pointer"}} onClick={() => window.open(`${value?.meetLink}`,'_blank')}>{value?.meetLink}</Card.Link><br /><br />
                         <b>Date:</b> <Card.Text>{new Date(value?.date).toDateString()}</Card.Text>
                       </ListGroup.Item>
