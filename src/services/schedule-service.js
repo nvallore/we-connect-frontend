@@ -1,10 +1,14 @@
 import axios from "axios";
 
+// const profileHost = 'http://127.0.0.1:3001/scheduler';
+const scheduleHost = 'http://localhost/scheduler';
+
+
 export function getSlotsData(reqUser) {
     const request = {
         mentorId: reqUser
     };
-    return axios.get('http://127.0.0.1:3001/getSlots', {params: request}).then(response => {
+    return axios.get(`${scheduleHost}/getSlots`, {params: request}).then(response => {
         // response = {
         //     isFirstTimeLogin: true,
         //     status: 200,
@@ -18,14 +22,14 @@ export function getSlotsData(reqUser) {
 
 export function createSlots(slotDetails) {
 
-    return axios.post('http://127.0.0.1:3001/createSlot', slotDetails).then(response => {
+    return axios.post(`${scheduleHost}/createSlot`, slotDetails).then(response => {
         return response;
     });
 }
 
 export function deleteUserSlot(slotId) {
 
-    return axios.post('http://127.0.0.1:3001/deleteSlot', slotId).then(response => {
+    return axios.post(`${scheduleHost}/deleteSlot`, slotId).then(response => {
         return response;
     });
 }
@@ -45,13 +49,13 @@ export function deleteUserSlot(slotId) {
 // }
 
 export function bookMentorSlot(payload) {
-    return axios.post('http://127.0.0.1:3001/bookSlot', payload).then(response => {
+    return axios.post(`${scheduleHost}/bookSlot`, payload).then(response => {
         return response;
     });
 }
 
 export function getScheduleData(reqUser) {
-    return axios.post('http://127.0.0.1:3001/getSchedule', reqUser).then(response => {
+    return axios.post(`${scheduleHost}/getSchedule`, reqUser).then(response => {
         return response?.data;
     });
 }

@@ -1,8 +1,11 @@
 import axios from "axios";
 
+// const profileHost = 'http://127.0.0.1:8001/profile';
+const profileHost = 'http://localhost/profile';
+
 export function getProfileData(userRegistrationId) {
 
-    return axios.get(`http://127.0.0.1:8001/api/completeprofiledetails/${userRegistrationId}`).then(response => {
+    return axios.get(`${profileHost}/api/completeprofiledetails/${userRegistrationId}`).then(response => {
                 const profileData = {
                     ...response?.data
                 };
@@ -11,14 +14,14 @@ export function getProfileData(userRegistrationId) {
 }
 
 export function editProfileData(userDetails) {
-    return axios.put(`http://127.0.0.1:8001/api/completeprofiledetails/${userDetails?.regId}`, userDetails).then(response => {
+    return axios.put(`${profileHost}/api/completeprofiledetails/${userDetails?.regId}`, userDetails).then(response => {
                 return response;
             });
 }
 
 export function onboardProfileData(userDetails) {
 
-    return axios.post('http://127.0.0.1:8001/api/completeprofile', userDetails).then(response => {
+    return axios.post(`${profileHost}/api/completeprofile`, userDetails).then(response => {
                 return response;
             });
 }
@@ -57,7 +60,7 @@ export function searchProfile(searchQuery) {
             roleName: 'Admin'
         }
     ];
-    return axios.get(`http://127.0.0.1:8001/api/filterprofile?search=${searchQuery}`).then(response => {
+    return axios.get(`${profileHost}/api/filterprofile?search=${searchQuery}`).then(response => {
                 const searchData = response?.data;
                 return searchData;
             });
@@ -65,7 +68,7 @@ export function searchProfile(searchQuery) {
 
 export function submitThankYouNote(noteRequest) {
 
-    return axios.post('http://127.0.0.1:8001/api/thankyounotes', noteRequest).then(response => {
+    return axios.post(`${profileHost}/api/thankyounotes`, noteRequest).then(response => {
                 return response;
             });
 }

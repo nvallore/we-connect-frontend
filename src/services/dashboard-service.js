@@ -1,5 +1,8 @@
 import axios from "axios";
 
+// const dashboardHost = 'http://127.0.0.1:8002/dashboard';
+const dashboardHost = 'http://localhost/dashboard';
+
 export function getDashboardDetails(userRole) {
     console.log(userRole);
     let postType = 'dashboardexternalpost';
@@ -32,7 +35,7 @@ export function getDashboardDetails(userRole) {
             image: 'https://m.media-amazon.com/images/M/MV5BMjEwNjE5MTg1N15BMl5BanBnXkFtZTgwODM1NDgwNjE@._V1_.jpg'
         }
     ];
-    return axios.get(`http://127.0.0.1:8002/api/${postType}`).then(response => {
+    return axios.get(`${dashboardHost}/api/${postType}`).then(response => {
                 const data = response?.data;
                 return data;
             });
