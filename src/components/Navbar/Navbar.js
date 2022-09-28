@@ -10,6 +10,7 @@ import Form from 'react-bootstrap/Form';
 import { Button, Row, Col, Card, ListGroup } from 'react-bootstrap';
 import userActions from '../../actions/userActions';
 import { searchProfile } from '../../services/profile-service';
+import { alertActions } from '../../actions/alertActions';
 
 
 function CollapsibleNavbar() {
@@ -50,6 +51,10 @@ function CollapsibleNavbar() {
       searchProfile(searchText).then(
         (searchResult) => {
           setSearchResult(searchResult);
+        }
+      ).catch(
+        error => {
+          dispatch(alertActions.error(error));
         }
       )
     } else {

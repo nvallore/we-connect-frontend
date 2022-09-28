@@ -58,7 +58,7 @@ const resetPassword = (userDetails) => {
     function failure(error) { return { type: userConstants.RESET_PASSWORD_FAILURE, error } }
 }
 
-    export default {
+export default {
     login,
     logout,
     resetPassword

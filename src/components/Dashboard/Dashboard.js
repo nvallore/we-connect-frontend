@@ -4,6 +4,8 @@ import styles from './Dashboard.module.css';
 import { Card, CardGroup, Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { getDashboardDetails } from '../../services/dashboard-service';
 import { getScheduleData } from '../../services/schedule-service';
+import { useDispatch } from 'react-redux';
+import { alertActions } from '../../actions/alertActions';
 
 
 function Dashboard() {
@@ -12,6 +14,8 @@ function Dashboard() {
   const userRole = userDetails?.role;
   const userName = userDetails?.username;
 
+  const dispatch = useDispatch();
+
   const [dashboardItems, setDashboardItems] = useState([]);
   const [userSchedule, setUserSchedule] = useState([]);
 
@@ -19,6 +23,10 @@ function Dashboard() {
     getDashboardDetails(userRole).then(
       (result) => {
         setDashboardItems(result);
+      }
+    ).catch(
+      error => {
+        dispatch(alertActions.error(error));
       }
     )
   }, [])
@@ -40,7 +48,6 @@ function Dashboard() {
             s.notes = s.noteId ? noteData[s.noteId].notes : ''
             return s
           });
-          console.log(result?.schedule?.filter(val => new Date(val?.date) > new Date()));
           setUserSchedule(result?.schedule?.filter(val => new Date(val?.date) > new Date()));
         }
       )

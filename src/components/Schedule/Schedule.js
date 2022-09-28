@@ -4,8 +4,9 @@ import { Container, Row, Col, } from 'react-bootstrap'
 import PaginatedTable from './PaginatedTable';
 import AddMoMButton from './AddMoMButton';
 import { getScheduleData } from '../../services/schedule-service';
-import { useSelector } from 'react-redux';
-// import { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { alertActions } from '../../actions/alertActions';
+
 class AddMoM extends React.Component {
     render() {
         return (
@@ -20,7 +21,9 @@ const Schedule = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState({});
 
-  const userData = useSelector(state => state.user)
+    const dispatch = useDispatch();
+
+    const userData = useSelector(state => state.user)
 
     useEffect(() => {
         // { id: "mentor3", roleId: 'alumni' }
@@ -47,6 +50,7 @@ const Schedule = () => {
                 (error) => {
                     setIsLoaded(true);
                     setError(error);
+                    dispatch(alertActions.error(error));
                 }
             )
     }, [])

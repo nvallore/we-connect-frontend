@@ -9,15 +9,7 @@ export function login(loginDetails) {
         username: loginDetails?.registrationId,
         password: loginDetails?.password
     };
-    // var response;
     return axios.post(`${authHost}/api/login`, request).then(response => {
-                // response = {
-                //     isFirstTimeLogin: true,
-                //     status: 200,
-                //     token: '123123',
-                //     name:'User 1',
-                //     role: 'student'
-                // };
                 const userData = {
                     ...response?.data,
                     password: loginDetails?.password
@@ -29,10 +21,6 @@ export function login(loginDetails) {
 export function resetPassword(userDetails) {
     console.log(userDetails);
     return axios.post(`${authHost}/api/resetpassword`, userDetails).then(response => {
-                // response = {
-                //     success: true
-                // };
-                console.log(response);
                 return response?.data;
             })
 }
@@ -40,10 +28,6 @@ export function resetPassword(userDetails) {
 export function logout() {
     console.log('In logout');
     return axios.post(`${authHost}/api/logout`).then(response => {
-                // response = {
-                //     success: true
-                // };
-                console.log(response);
                 return response?.data;
             })
 }

@@ -58,7 +58,11 @@ function Slots() {
     createSlots(reqPayload).then(res => {
         handleClose();
         dispatch(scheduleActions.getSlotsData(requestProfile?.id));
-    });
+    }).catch(
+      error => {
+        dispatch(alertActions.error(error));
+      }
+    );
   };
 
   const deleteSlot = (slotId) => {
@@ -68,7 +72,11 @@ function Slots() {
 
     deleteUserSlot(reqPayload).then(res => {
         dispatch(scheduleActions.getSlotsData(requestProfile?.id));
-    });
+    }).catch(
+      error => {
+        dispatch(alertActions.error(error));
+      }
+    );
   };
 
   const getExcludedTimes = (date) => {
@@ -111,7 +119,11 @@ function Slots() {
     bookMentorSlot(reqPayload).then(res => {
         dispatch(scheduleActions.getSlotsData(requestProfile?.id));
         setShowSlotBookingConfirmation(false);
-    });
+    }).catch(
+      error => {
+        dispatch(alertActions.error(error));
+      }
+    );
   }
 
   useEffect(() => {
