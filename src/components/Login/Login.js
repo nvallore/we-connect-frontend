@@ -45,7 +45,7 @@ function Login() {
   };
 
   return (
-    <div className={styles.mainContainer}>
+    <div className={styles.mainContainer} data-testid="Login">
       <Image fluid src={logo_image} alt='logo_image' className={styles.logoImage}></Image>
 
       <Container fluid> <Row className="justify-content-md-center"> <Col xs lg="6">
