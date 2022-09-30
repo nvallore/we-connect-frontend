@@ -14,6 +14,8 @@ pipeline {
               -Dsonar.projectKey=we-connect \
                -Dsonar.sources=. \
                -Dsonar.projectName=we-connect \
+               -Dsonar.login=admin \
+               -Dsonar.password=admin \
                 -Dsonar.projectVersion=1.0 """
         }
       }
