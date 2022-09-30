@@ -10,7 +10,11 @@ pipeline {
           scannerHome = tool 'sonarqube'
         }
         withSonarQubeEnv(installationName: 'sonarqube') {
-          sh "${scannerHome}/bin/sonar-scanner"
+          sh """${scannerHome}/bin/sonar-scanner \
+              -Dsonar.projectKey=we-connect \
+               -Dsonar.sources=. \
+               -Dsonar.projectName=we-connect \
+                -Dsonar.projectVersion=1.0 """
         }
       }
     }
