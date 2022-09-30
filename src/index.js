@@ -76,7 +76,7 @@ root.render(
       >
       </LoadingOverlay>
       </div>
-      <BrowserRouter>
+      <BrowserRouter basename={'/we-connect-frontend'}>
       <Provider store={store}><App /></Provider>
       </BrowserRouter>
   </React.StrictMode>
