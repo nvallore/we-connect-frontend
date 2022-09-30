@@ -52,7 +52,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "unit-test": "jest --env=jsdom",
-    "integration-test": "cucumber-js -f json | tee test-reports/cucumber_report.json || cd ."
+    "integration-test": "cucumber-js || cd ."
   },
   "eslintConfig": {
     "extends": [
