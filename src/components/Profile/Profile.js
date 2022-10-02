@@ -124,7 +124,7 @@ function Profile() {
               </Card.Body>
               {userRegistrationId !== profileRegistrationId && <Card.Body>
                 <Form.Control as="textarea" rows={3} placeholder="Express your gratitude here..." value={thankyouNote} name={thankyouNote} onChange={handleThankYouNoteChange} />
-                <Button variant="secondary" onClick={createThankYouNote} outline className="mt-2">Post</Button>
+                <Button variant="primary" onClick={createThankYouNote} outline className="mt-2">Post</Button>
               </Card.Body>
               }
             </Card>

@@ -9,7 +9,7 @@ export default class AddMoMButton extends React.Component {
 
     render() {
         return (<div style={{ textAlign: 'center', fontSize: 18 }}>
-            <Button outline onClick={this.onClickListener} disabled={this.props.isDisabled}>Add</Button>
+            <Button outline variant="primary" onClick={this.onClickListener} disabled={this.props.isDisabled}>Add</Button>
         </div>);
     }
 

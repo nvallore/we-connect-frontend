@@ -9,6 +9,7 @@ import logo_image from '../../images/logo512.png';
 import Image from 'react-bootstrap/Image'
 import { useDispatch, useSelector } from 'react-redux';
 import userActions from '../../actions/userActions';
+import we_connect_path from '../../images/we-connect-path.png';
 
 function ResetPassword() {
 
@@ -54,9 +55,13 @@ function ResetPassword() {
 
   return (
     <div data-testid="ResetPassword" className={styles.mainContainer}>
-      <Image fluid src={logo_image} alt='logo_image' className={styles.logoImage}></Image>
 
-      <Container fluid> <Row className="justify-content-md-center"> <Col xs lg="6">
+      <Container fluid> <Row className="justify-content-md-center">
+      <Col xs="0" lg="6" className="d-none d-lg-block">
+      <Image fluid src={we_connect_path} alt='We Connect Path' className={styles.weConnectPathImage}></Image>
+      </Col>
+        <Col xs lg="6">
+        <Image fluid src={logo_image} alt='logo_image' className={styles.logoImage}></Image>
         <Card><Card.Header>Reset Password</Card.Header><Card.Body>
           <Form onSubmit={handleSubmit(submitPasswordDetails)} onReset={reset} >
             <Form.Group className="mb-3">

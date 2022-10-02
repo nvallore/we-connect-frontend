@@ -172,7 +172,7 @@ function Slots() {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="dark" onClick={submitSlot} id='slotSubmit'>
+            <Button variant="success" onClick={submitSlot} id='slotSubmit'>
               Submit Slot
             </Button>
           </Modal.Footer>
@@ -198,7 +198,7 @@ function Slots() {
             <Button variant="secondary" onClick={handleSlotBookingConfirmationClose}>
               Close
             </Button>
-            <Button variant="dark" onClick={scheduleCall}>
+            <Button variant="success" onClick={scheduleCall}>
               Schedule Call
             </Button>
           </Modal.Footer>
@@ -219,11 +219,11 @@ function Slots() {
                   <><ListGroup.Item>
                     <Card.Body>
                       <Card.Title>Date: {new Date(value.date).toLocaleDateString()} Time: {new Date(value.date).toLocaleTimeString()} </Card.Title>
-                      <Card.Subtitle className="mb-2 text-muted">Slot {value.isAvailable ? 'Free' : 'Booked'}</Card.Subtitle>
+                      <Card.Subtitle className="mb-2 text-muted">Slot {value.isAvailable ? <><p className='text-success'>Free</p></> : <><p className='text-warning'>Booked</p></>}</Card.Subtitle>
                       {
                         !isScheduleCall ? <Button variant='secondary' disabled={!value.isAvailable} onClick={() => deleteSlot(value.slotId)}>Delete Slot</Button>
                           :
-                          <Button variant='secondary' disabled={!value.isAvailable} onClick={() => bookSlot(value)}>Book Slot</Button>
+                          <Button variant='success' disabled={!value.isAvailable} onClick={() => bookSlot(value)}>Book Slot</Button>
                       }
                     </Card.Body>
                   </ListGroup.Item></>

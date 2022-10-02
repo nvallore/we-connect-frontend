@@ -4,7 +4,7 @@ import { alertActions } from './alertActions';
 
 const login = (userDetails) => {
     return dispatch => {
-
+        localStorage.removeItem("user");
         authService.login(userDetails)
             .then(
                 user => { 

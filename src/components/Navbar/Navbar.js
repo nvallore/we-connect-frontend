@@ -63,7 +63,6 @@ function CollapsibleNavbar() {
   }
 
   const navigateToProfile = (regId) => {
-    console.log(regId);
     setSearchResult([])
     navigate('/dashboard/profile', { state: { registrationId: regId, fromSearch: true } })
   }
@@ -75,7 +74,7 @@ function CollapsibleNavbar() {
         <Navbar collapseOnSelect expand="sm" bg="light" variant="light" className="w-100">
           <Container fluid>
             {/* <Col xs lg="6"> */}
-            <Navbar.Brand as={Link} to="/dashboard"><img src={logo_image} alt='logo_image' className="logoImage"></img> Welcome {user.name}</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/dashboard"><img src={logo_image} alt='logo_image' className="logoImage"></img>Welcome, <i>{user.name}!!</i></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
             <Row className="justify-content-md-center w-100">
@@ -120,7 +119,7 @@ function CollapsibleNavbar() {
                 <Nav.Link as={Link} to="/dashboard/schedule" className="maxWidth">My Schedule</Nav.Link>
                 <Nav.Link as={Link} id="dashboardProfile" to="/dashboard/profile" state={{ registrationId: user?.registrationId }} className="maxWidth">Profile</Nav.Link>
                 {/* <Nav.Link as={Link} to="/login"></Nav.Link> */}
-                <Button variant="dark" id='userLogout' onClick={logout}>Logout</Button>
+                <Button variant="primary" id='userLogout' onClick={logout}>Logout</Button>
               </Nav>
             </Navbar.Collapse>
             {/* </Col> */}
