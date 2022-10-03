@@ -101,9 +101,9 @@ function CollapsibleNavbar() {
                     <Card.Title>{value.name}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{value.regId}</Card.Subtitle>
                     <Card.Text>
-                      Stream: {value.stream}<br />
-                      Skills: {value.skills}<br />
-                      Expertise: {value.expertise}<br />
+                      <b>Stream:</b> {value.stream}<br />
+                      <b>Skills:</b> {value.skills}<br />
+                      <b>Expertise:</b> {value.expertise}<br />
                     </Card.Text>
                   </Card.Body>
                 </ListGroup.Item></>

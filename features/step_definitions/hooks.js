@@ -5,7 +5,7 @@ capabilities.set("chromeOptions", { "w3c": false });
 require("chromedriver");
 
 Before({ timeout: 60000 }, async function () {
-    this.URL = `http://127.0.0.1:3000/we-connect-frontend`
+    this.URL = `http://localhost:3000/we-connect-frontend`
     try {
         this.driver = new Builder()
             .withCapabilities(capabilities)

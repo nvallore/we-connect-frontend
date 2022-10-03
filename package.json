@@ -50,7 +50,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage --watchAll=false || cd .",
     "eject": "react-scripts eject",
     "unit-test": "jest --env=jsdom",
     "integration-test": "cucumber-js || cd ."

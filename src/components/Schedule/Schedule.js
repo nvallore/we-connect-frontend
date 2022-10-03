@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { Container, Row, Col, } from 'react-bootstrap'
+import { Container, Row, Col, Card, } from 'react-bootstrap'
 // import TableContainer from './TableContainer';
 import PaginatedTable from './PaginatedTable';
 import AddMoMButton from './AddMoMButton';
@@ -39,7 +39,7 @@ const Schedule = () => {
                     result?.schedule?.map(s => {
                         let slotData = result.slotData
                         let noteData = result.notes
-                        s.date = slotData[s.slotId].date
+                        s.date = new Date(slotData[s.slotId]?.date).toLocaleDateString() + ' - ' + new Date(slotData[s.slotId]?.date).toLocaleTimeString()
                         s.name = slotData[s.slotId].mentorName
                         s.notes = s.noteId ? noteData[s.noteId].notes : ''
                         return s
@@ -82,6 +82,13 @@ const Schedule = () => {
             {
                 Header: "Meet Link",
                 accessor: "meetLink",
+                type: "text",
+                Cell: ({ cell }) => {
+                    let value = cell.row.original;
+                    return (
+                        <Card.Link style={{ "cursor": "pointer"}} onClick={() => window.open(`${value?.meetLink}`,'_blank')}>{value?.meetLink}</Card.Link>
+                    );
+                }
             },
             {
                 Header: "Date",
