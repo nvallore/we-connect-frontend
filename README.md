@@ -4,7 +4,7 @@
 
 1. Clone the web app repository into local system using following command
 ```
-git clone git@github.com:caput-draconis/we-connect-frontend.git
+git clone git@github.com:nvallore/we-connect-frontend.git
 ```
 2. Enter into the directory created
 ```
