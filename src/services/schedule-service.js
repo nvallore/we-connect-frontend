@@ -59,3 +59,10 @@ export function getScheduleData(reqUser) {
         return response?.data;
     });
 }
+
+export function submitNotes(notes) {
+    return axios.post(`${scheduleHost}/updateNotes`, notes)
+    .then(response => {
+        return response?.data;
+    });
+}
