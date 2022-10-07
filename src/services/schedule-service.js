@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// const profileHost = 'http://127.0.0.1:3001/scheduler';
+// const scheduleHost = 'http://127.0.0.1:3001/scheduler';
 const scheduleHost = 'http://localhost/scheduler';
 
 
